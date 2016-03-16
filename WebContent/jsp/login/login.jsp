@@ -1,8 +1,12 @@
+<%@page import="cl.buildersoft.framework.util.BSHttpServlet_"%>
 <%@page import="cl.buildersoft.framework.util.BSWeb"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	request.getSession(false).invalidate();
+//	request.getSession(false).invalidate();
+	BSHttpServlet_ hs = new BSHttpServlet_();
+	hs.deleteSession(request, response);
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="es">
