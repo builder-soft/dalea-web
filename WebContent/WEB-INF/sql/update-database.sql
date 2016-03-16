@@ -18,3 +18,5 @@ create table bsframework.tSessionData (
 ALTER TABLE bsframework.tSessionData
 ADD INDEX Index_Session (cSession ASC),
 ADD CONSTRAINT SessionData_To_Session FOREIGN KEY (cSession) REFERENCES tSession(cId);
+
+ALTER TABLE bsframework.tSession MODIFY COLUMN cSessionId varchar(50) NOT NULL;

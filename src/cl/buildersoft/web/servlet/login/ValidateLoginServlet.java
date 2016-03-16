@@ -54,8 +54,8 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 		String password = request.getParameter("password");
 		String page = null;
 
-//		LOG.log(Level.INFO, "Starting ValidateLoginServlet");
-		
+		// LOG.log(Level.INFO, "Starting ValidateLoginServlet");
+
 		Boolean validData = validInputData(mail, password);
 
 		if (validData) {
@@ -133,6 +133,10 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 					}
 					if (user != null) {
 						HttpSession session = createSession(request, response);
+
+						System.out.println(session.getId());
+						System.out.println(System.currentTimeMillis());
+
 						synchronized (session) {
 							session.setAttribute("User", user);
 							session.setAttribute("Rol", rols);

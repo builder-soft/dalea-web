@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cl.buildersoft.framework.util.BSHttpServlet_;
 
-@WebFilter(dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD }, urlPatterns = { "/servlet/*" })
+@WebFilter(dispatcherTypes = { DispatcherType.REQUEST}, urlPatterns = { "/servlet/*" })
 public class SessionFilter implements Filter {
 
 	// public static String SESSION_COOKIE_NAME = "SessionCookie";
