@@ -22,5 +22,15 @@ ADD CONSTRAINT SessionData_To_Session FOREIGN KEY (cSession) REFERENCES tSession
 ALTER TABLE bsframework.tSession MODIFY COLUMN cSessionId varchar(50) NOT NULL;
 ALTER TABLE bsframework.tsession CHANGE cSessionId cToken varchar(50) NOT NULL;
 
-ALTER TABLE bsframework.tSession
-ADD INDEX Index_Token (cToken ASC);
+ALTER TABLE bsframework.tSession ADD INDEX Index_Token (cToken ASC);
+
+CREATE TABLE tConfig (
+  cId bigint(20) NOT NULL AUTO_INCREMENT,
+  cKey varchar(20) NOT NULL UNIQUE,
+  cValue varchar(300) NOT NULL,
+  PRIMARY KEY (cId),
+  UNIQUE KEY cId (cId)
+) ENGINE=InnoDB;
+
+INSERT INTO tConfig(cKey, cValue) VALUES('DALEA_CONTEXT', '/dalea-web');
+INSERT INTO tConfig(cKey, cValue) VALUES('TIMECTRL_CONTEXT', '/timectrl-web');

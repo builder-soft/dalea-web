@@ -1,3 +1,8 @@
+<%@page import="cl.buildersoft.framework.util.BSHttpServlet_"%>
+<%
+	BSHttpServlet_ hs = new BSHttpServlet_();
+	hs.deleteSession(request, response);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -138,5 +143,6 @@ body {
 			</div>
 		</div>
 	</div>
+	<%= getServletContext().getInitParameter("A") %>
 </body>
 </html>
