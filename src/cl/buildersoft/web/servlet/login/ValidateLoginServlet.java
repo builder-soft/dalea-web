@@ -136,7 +136,9 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 
 						System.out.println(session.getId());
 						System.out.println(System.currentTimeMillis());
-
+						System.out.println(session.getAttribute("SESSION_SSO").toString() );
+						
+						//SessionId
 						synchronized (session) {
 							session.setAttribute("User", user);
 							session.setAttribute("Rol", rols);

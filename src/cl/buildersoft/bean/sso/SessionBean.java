@@ -9,15 +9,15 @@ public class SessionBean extends BSBean {
 	@SuppressWarnings("unused")
 	private String TABLE = "bsframework.tSession";
 
-	private String sessionId = null;
+	private String token = null;
 	private Timestamp lastAccess = null;
 
-	public String getSessionId() {
-		return sessionId;
+	public String getToken() {
+		return token;
 	}
 
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public Timestamp getLastAccess() {
@@ -26,6 +26,11 @@ public class SessionBean extends BSBean {
 
 	public void setLastAccess(Timestamp lastAccess) {
 		this.lastAccess = lastAccess;
+	}
+
+	@Override
+	public String toString() {
+		return "SessionBean [Id=" + getId() + ", lastAccess=" + lastAccess + ", token=" + token + "]";
 	}
 
 }

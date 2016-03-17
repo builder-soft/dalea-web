@@ -20,3 +20,7 @@ ADD INDEX Index_Session (cSession ASC),
 ADD CONSTRAINT SessionData_To_Session FOREIGN KEY (cSession) REFERENCES tSession(cId);
 
 ALTER TABLE bsframework.tSession MODIFY COLUMN cSessionId varchar(50) NOT NULL;
+ALTER TABLE bsframework.tsession CHANGE cSessionId cToken varchar(50) NOT NULL;
+
+ALTER TABLE bsframework.tSession
+ADD INDEX Index_Token (cToken ASC);
