@@ -1,3 +1,5 @@
+<%@page import="cl.buildersoft.framework.util.BSWeb"%>
+<%@page import="cl.buildersoft.framework.beans.Config"%>
 <%@page import="cl.buildersoft.framework.util.BSHttpServlet_"%>
 <%
 	BSHttpServlet_ hs = new BSHttpServlet_();
@@ -11,13 +13,13 @@
 <META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">
 <title>DALEA T&amp;A</title>
 <link
-	href="${pageContext.request.contextPath}/bootstrap-320/css/bootstrap.css"
+	href="${applicationScope['DALEA_CONTEXT']}/bootstrap-320/css/bootstrap.css"
 	rel="stylesheet">
 
 <style type="text/css">
 body {
 	background-image:
-		url('${pageContext.request.contextPath}/img/login/wallpapper4.jpg');
+		url('${applicationScope['DALEA_CONTEXT']}/img/login/wallpapper4.jpg');
 	background-size: 1144px;
 	background-repeat: no-repeat;
 	background-position: center top;
@@ -115,11 +117,11 @@ body {
 				<div class="account-wall">
 				  
 					<img class="profile-img"
-						src="${pageContext.request.contextPath}/img/login/photo.png"
+						src="${applicationScope['DALEA_CONTEXT']}/img/login/photo.png"
 						alt="">
 						  
 					<form class="form-signin"
-						action="${pageContext.request.contextPath}/login/ValidateLoginServlet"
+						action="${applicationScope['DALEA_CONTEXT']}/login/ValidateLoginServlet?<%=BSWeb.randomString() %>"
 						method="post">
 						<input type="text" class="form-control" placeholder="Usuario"
 							name="mail" required autofocus> <input type="password"
@@ -143,6 +145,11 @@ body {
 			</div>
 		</div>
 	</div>
-	<%= application.getAttribute("DALEA_CONTEXT") %> 
+	<!-- 
+	<%= application.getAttribute("DALEA_CONTEXT") %><br>
+	<%=	application.toString() %><br>
+	<%=getServletContext().toString()%><br>
+	 -->
+		 
 </body>
 </html>

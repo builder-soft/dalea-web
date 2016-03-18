@@ -15,21 +15,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import cl.buildersoft.framework.util.BSHttpServlet_;
 
-@WebFilter(dispatcherTypes = { DispatcherType.REQUEST}, urlPatterns = { "/servlet/*" })
+@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/servlet/*" })
 public class SessionFilter implements Filter {
 
 	// public static String SESSION_COOKIE_NAME = "SessionCookie";
 
 	public SessionFilter() {
-		System.out.println("SessionFilterFordward");
+		// System.out.println("SessionFilterFordward");
 	}
 
 	public void destroy() {
-		System.out.println("destroy");
+		// System.out.println("destroy");
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
-		System.out.println("init");
+		// System.out.println("init");
 	}
 
 	public void doFilter(ServletRequest rq, ServletResponse rs, FilterChain chain) throws IOException, ServletException {
@@ -39,23 +39,22 @@ public class SessionFilter implements Filter {
 
 		BSHttpServlet_ su = new BSHttpServlet_();
 
-//		String sessionId = su.readCookieValue(request);
-//		try {
-//			if (sessionId == null) {
-//				request.getRequestDispatcher("Invaliduser.jsp").forward(request, response);
-//			} else {
-				try {
-					su.restoreSession(request, response);
-				} catch (Exception e) {
-					throw new ServletException(e);
-				}
-
-				chain.doFilter(rq, rs);
-
-//			}
-//		} catch (Exception e) {
-//			throw new ServletException(e);
-//		}
+		// String sessionId = su.readCookieValue(request);
+		// try {
+		// if (sessionId == null) {
+		// request.getRequestDispatcher("Invaliduser.jsp").forward(request,
+		// response);
+		// } else {
+		try {
+			su.restoreSession(request, response);
+		} catch (Exception e) {
+			throw new ServletException(e);
+		}
+		chain.doFilter(rq, rs);
+		// }
+		// } catch (Exception e) {
+		// throw new ServletException(e);
+		// }
 	}
 
 }

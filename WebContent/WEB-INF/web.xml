@@ -8,17 +8,13 @@
 		<welcome-file>jsp/login/login2.jsp</welcome-file>
 	</welcome-file-list>
 
-<!-- 
+ 
 	<servlet>
 		<servlet-name>MyServlet</servlet-name>
 		<servlet-class>cl.buildersoft.dalea.StartUp</servlet-class>
-		<init-param>
-			<param-name>ContextList</param-name>
-			<param-value>/dalea-web,/timectrl-web</param-value>
-		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	 -->
+ 
 	 
    <context-param>
         <param-name>A</param-name>

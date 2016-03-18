@@ -1,9 +1,11 @@
+< % @ include file="/WEB-INF/jsp/common/header2.jsp"%>
+< % @ include file="/WEB-INF/jsp/common/menu2.jsp"%>
 <%
-	String loadingIcon = "/img/loading/6.gif";
+	String loadingIcon = "/img/loading/2.gif";
 %>
 <script type="text/javascript">
 <!--
-	var contextPath = "${pageContext.request.contextPath}";
+	var contextPath = "${applicationScope['TIMECTRL_CONTEXT']}";
 	function onLoadPage() {
 		try {
 			loadCurrentMarks();
@@ -114,3 +116,5 @@
 <%=request.getHeader("User-Agent") %>
 
 <a href="${pageContext.request.contextPath}/NewFile.html">${pageContext.request.contextPath}/NewFile.html</a>
+
+< % @ include file="/WEB-INF/jsp/common/footer2.jsp"%>
