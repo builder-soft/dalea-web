@@ -143,6 +143,6 @@ body {
 			</div>
 		</div>
 	</div>
-	<%= getServletContext().getInitParameter("A") %>
+	<%= application.getAttribute("DALEA_CONTEXT") %> 
 </body>
 </html>
