@@ -134,9 +134,9 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 					if (user != null) {
 						HttpSession session = createSession(request, response);
 
-						System.out.println(session.getId());
-						System.out.println(System.currentTimeMillis());
-						System.out.println(session.getAttribute("SESSION_SSO").toString() );
+//						System.out.println(session.getId());
+//						System.out.println(System.currentTimeMillis());
+//						System.out.println(session.getAttribute("SESSION_SSO").toString() );
 						
 						//SessionId
 						synchronized (session) {
@@ -172,18 +172,18 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 
 		Calendar d1 = BSDateTimeUtil.date2Calendar(user.getLastChangePass());
 
-		LOG.log(Level.INFO, "User: {0} - LastChangePass: {1}",
+		LOG.log(Level.FINEST, "User: {0} - LastChangePass: {1}",
 				BSUtils.array2ObjectArray(user.getMail(), BSDateTimeUtil.calendar2String(d1, "yyyy-MM-dd hh:mm:ss")));
 
 		Integer passChangeDays = config.getInteger(conn, "PASS_CHANGE_DAYS", 90);
-		LOG.log(Level.INFO, "PassChangeDays: {0}  ", passChangeDays);
+		LOG.log(Level.FINEST, "PassChangeDays: {0}  ", passChangeDays);
 
 		Long daysDiff = BSDateTimeUtil.dateDiff(d1, Calendar.getInstance());
-		LOG.log(Level.INFO, "Days diff {0}, for {1}", BSUtils.array2ObjectArray(daysDiff, user.getMail()));
+		LOG.log(Level.FINEST, "Days diff {0}, for {1}", BSUtils.array2ObjectArray(daysDiff, user.getMail()));
 
 		Boolean out = daysDiff > passChangeDays;
 
-		LOG.log(Level.INFO, "Out is: {0}", out);
+		LOG.log(Level.FINEST, "Out is: {0}", out);
 
 		return out;
 	}

@@ -19,11 +19,12 @@ public class StartUp extends BSHttpServlet_ {
 	private static final long serialVersionUID = 4859610759900103241L;
 	private static final String TIMECTRL_CONTEXT = "TIMECTRL_CONTEXT";
 	private static final String DALEA_CONTEXT = "DALEA_CONTEXT";
+	private static final String STATIC_CONTEXT = "STATIC_CONTEXT";
 
 	public StartUp() {
 		super();
 		LOG.log(Level.INFO, "Creating {0}", this.getClass().getName());
-		
+
 	}
 
 	public void init(ServletConfig config) throws ServletException {
@@ -35,15 +36,19 @@ public class StartUp extends BSHttpServlet_ {
 
 		Config daleContext = new Config();
 		Config timectrlContext = new Config();
+		Config staticContext = new Config();
 		try {
 			bu.search(conn, daleContext, "cKey=?", DALEA_CONTEXT);
 			bu.search(conn, timectrlContext, "cKey=?", TIMECTRL_CONTEXT);
+			bu.search(conn, staticContext, "cKey=?", STATIC_CONTEXT);
+
 		} finally {
 			cf.closeConnection(conn);
 		}
 
 		config.getServletContext().setAttribute(DALEA_CONTEXT, daleContext.getValue());
 		config.getServletContext().setAttribute(TIMECTRL_CONTEXT, timectrlContext.getValue());
+		config.getServletContext().setAttribute(STATIC_CONTEXT, staticContext.getValue());
 
 	}
 

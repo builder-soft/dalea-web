@@ -1,5 +1,5 @@
-< % @ include file="/WEB-INF/jsp/common/header2.jsp"%>
-< % @ include file="/WEB-INF/jsp/common/menu2.jsp"%>
+<%@ include file="/WEB-INF/jsp/common/header2.jsp"%>
+<%@ include file="/WEB-INF/jsp/common/menu2.jsp"%>
 <%
 	String loadingIcon = "/img/loading/2.gif";
 %>
@@ -117,4 +117,4 @@
 
 <a href="${pageContext.request.contextPath}/NewFile.html">${pageContext.request.contextPath}/NewFile.html</a>
 
-< % @ include file="/WEB-INF/jsp/common/footer2.jsp"%>
+<%@ include file="/WEB-INF/jsp/common/footer2.jsp"%>

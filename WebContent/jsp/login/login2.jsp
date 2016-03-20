@@ -1,5 +1,4 @@
 <%@page import="cl.buildersoft.framework.util.BSWeb"%>
-<%@page import="cl.buildersoft.framework.beans.Config"%>
 <%@page import="cl.buildersoft.framework.util.BSHttpServlet_"%>
 <%
 	BSHttpServlet_ hs = new BSHttpServlet_();

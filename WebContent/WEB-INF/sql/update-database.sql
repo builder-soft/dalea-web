@@ -34,3 +34,4 @@ CREATE TABLE tConfig (
 
 INSERT INTO tConfig(cKey, cValue) VALUES('DALEA_CONTEXT', '/dalea-web');
 INSERT INTO tConfig(cKey, cValue) VALUES('TIMECTRL_CONTEXT', '/timectrl-web');
+INSERT INTO tConfig(cKey, cValue) VALUES('PUBLIC_CONTEXT', 'http://www.buildersoft.cl');
