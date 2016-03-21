@@ -12,13 +12,13 @@
 <META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">
 <title>DALEA T&amp;A</title>
 <link
-	href="${applicationScope['DALEA_CONTEXT']}/bootstrap-320/css/bootstrap.css"
+	href="${applicationScope['STATIC_CONTEXT']}/bootstrap-334-dist/css/bootstrap.css"
 	rel="stylesheet">
 
 <style type="text/css">
 body {
 	background-image:
-		url('${applicationScope['DALEA_CONTEXT']}/img/login/wallpapper4.jpg');
+		url('${applicationScope['STATIC_CONTEXT']}/img/login/wallpapper6.jpg');
 	background-size: 1144px;
 	background-repeat: no-repeat;
 	background-position: center top;
@@ -95,14 +95,14 @@ body {
 
 /**Aqui se configura la posicion del cuadro de login */
 .account-wall {
-	margin-top: 330px;
+	margin-top: 100px;
 	padding: 10px 0px 10px 0px;
 	background-color: #f7f7f7;
 	-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 	-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-	margin-left: 50px;
-	width: 250px;
+	margin-left: 0px;
+
 }
 </style>
 </head>
@@ -116,7 +116,7 @@ body {
 				<div class="account-wall">
 				  
 					<img class="profile-img"
-						src="${applicationScope['DALEA_CONTEXT']}/img/login/photo.png"
+						src="${applicationScope['STATIC_CONTEXT']}/img/login/photo.png"
 						alt="">
 						  
 					<form class="form-signin"

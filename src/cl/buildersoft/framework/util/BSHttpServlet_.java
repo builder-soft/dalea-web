@@ -93,13 +93,7 @@ public class BSHttpServlet_ extends HttpServlet {
 	}
 
 	protected Boolean bootstrap(Connection conn) {
-		Boolean bootstrap = false;
-		BSConfig config = new BSConfig();
-		bootstrap = config.getBoolean(conn, "BOOTSTRAP");
-		bootstrap = bootstrap == null ? false : bootstrap;
-
-		return bootstrap;
-
+		return true;
 	}
 
 	/***************************************/
@@ -283,9 +277,12 @@ public class BSHttpServlet_ extends HttpServlet {
 			}
 		}
 		if (out == null) {
-			Object obj = request.getSession(false).getAttribute(SESSION_COOKIE_NAME);
-			if (obj != null) {
-				out = (String) obj;
+			HttpSession session = request.getSession(false);
+			if (session != null) {
+				Object obj = session.getAttribute(SESSION_COOKIE_NAME);
+				if (obj != null) {
+					out = (String) obj;
+				}
 			}
 		}
 

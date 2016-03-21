@@ -49,6 +49,7 @@
 	}
 
 	function getData(key, element) {
+		alert(contextPath + '/servlet/ajax/GetIndicator');
 		$.ajax({
 			type : "GET",
 			cache : false,
@@ -76,12 +77,12 @@
 	<div class="row">
 		<div class="alert alert-info col-sm-4 col-md-offset-1" role="alert">
 			Empleados asistentes: <b id="CurrentMarksLabel"><img
-				src="${pageContext.request.contextPath}<%=loadingIcon%>" /></b>
+				src="${applicationScope['STATIC_CONTEXT']}<%=loadingIcon%>" /></b>
 		</div>
 
 		<div class="alert alert-info col-sm-4 col-md-offset-2" role="alert" >
 			Retrazados: <b id="OverdueLabel"><img 
-				src="${pageContext.request.contextPath}<%=loadingIcon%>" /></b>
+				src="${applicationScope['STATIC_CONTEXT']}<%=loadingIcon%>" /></b>
 		</div>
 	</div>
 
@@ -89,32 +90,25 @@
 	<div class="row">
 		<div class="alert alert-info col-sm-4 col-md-offset-1" role="alert">
 			Última Lectura: <b id="LastReadLabel"><img
-				src="${pageContext.request.contextPath}<%=loadingIcon%>" /></b>
+				src="${applicationScope['STATIC_CONTEXT']}<%=loadingIcon%>" /></b>
 		</div>
 
 		<div class="alert alert-info col-sm-4 col-md-offset-2" role="alert">
 			Version Actual: <b id="CurrentVersionLabel"><img
-				src="${pageContext.request.contextPath}<%=loadingIcon%>" /></b>
+				src="${applicationScope['STATIC_CONTEXT']}<%=loadingIcon%>" /></b>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="alert alert-info col-sm-4 col-md-offset-1" role="alert">
 			Máquinas offline: <b id="OfflineMchLabel"><img
-				src="${pageContext.request.contextPath}<%=loadingIcon%>" /></b>
+				src="${applicationScope['STATIC_CONTEXT']}<%=loadingIcon%>" /></b>
 		</div>
 		<div class="alert alert-info col-sm-4 col-md-offset-2" role="alert">
 			Empleados sin Rut: <b id="EmployeeWORutLabel"><img
-				src="${pageContext.request.contextPath}<%=loadingIcon%>" /></b>
+				src="${applicationScope['STATIC_CONTEXT']}<%=loadingIcon%>" /></b>
 		</div>
-
 	</div>
-
-
 </div>
  
-<%=request.getHeader("User-Agent") %>
-
-<a href="${pageContext.request.contextPath}/NewFile.html">${pageContext.request.contextPath}/NewFile.html</a>
-
 <%@ include file="/WEB-INF/jsp/common/footer2.jsp"%>

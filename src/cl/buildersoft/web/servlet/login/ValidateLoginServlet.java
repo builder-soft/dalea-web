@@ -42,6 +42,7 @@ import cl.buildersoft.framework.util.BSUtils;
 
 @WebServlet(urlPatterns = "/login/ValidateLoginServlet")
 public class ValidateLoginServlet extends BSHttpServlet_ {
+	private static final String NOT_FOUND_JSP = "/WEB-INF/jsp/common/not-found.jsp";
 	private static final Logger LOG = Logger.getLogger(ValidateLoginServlet.class.getName());
 	private static final long serialVersionUID = 3161065592126995826L;
 
@@ -75,7 +76,7 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 			User mayBeUser = userExists(connBSframework, userService, mail);
 
 			if (mayBeUser == null) {
-				page = "/WEB-INF/jsp/login/not-found.jsp";
+				page = NOT_FOUND_JSP;
 
 				List<Domain> domains = getAllDomains(connBSframework);
 
@@ -99,7 +100,7 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 								"El usuario intentó acceder con una clave invalida", null);
 						cf.closeConnection(connTemp);
 					}
-					page = "/WEB-INF/jsp/login/not-found.jsp";
+					page = NOT_FOUND_JSP;
 
 				} else {
 					List<Domain> domains = null;
