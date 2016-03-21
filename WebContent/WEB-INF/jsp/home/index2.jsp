@@ -8,9 +8,9 @@
 	var contextPath = "${applicationScope['TIMECTRL_CONTEXT']}";
 	function onLoadPage() {
 		try {
+			loadCurrentVersion();
 			loadCurrentMarks();
 			loadOverdue();
-			loadCurrentVersion();
 			loadLastRead();
 			loadOfflineMch();
 			loadEmployeeWORut();
@@ -49,7 +49,7 @@
 	}
 
 	function getData(key, element) {
-		alert(contextPath + '/servlet/ajax/GetIndicator');
+//		alert(contextPath + '/servlet/ajax/GetIndicator');
 		$.ajax({
 			type : "GET",
 			cache : false,

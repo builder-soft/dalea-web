@@ -15,7 +15,7 @@ import cl.buildersoft.framework.beans.Rol;
 import cl.buildersoft.framework.services.BSMenuService;
 import cl.buildersoft.framework.services.impl.BSMenuServiceImpl;
 import cl.buildersoft.framework.util.BSConnectionFactory;
-import cl.buildersoft.framework.util.BSHttpServlet_;
+import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
 
 /**
  * Servlet implementation class GetMenu

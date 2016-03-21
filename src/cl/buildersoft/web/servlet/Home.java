@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cl.buildersoft.framework.util.BSDataUtils;
 import cl.buildersoft.framework.util.BSDateTimeUtil;
-import cl.buildersoft.framework.util.BSHttpServlet_;
+import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
 
 @WebServlet("/servlet/Home")
 public class Home extends BSHttpServlet_ {

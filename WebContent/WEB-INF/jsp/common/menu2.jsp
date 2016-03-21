@@ -70,7 +70,7 @@ http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html
 							<li><a href="${applicationScope['DALEA_CONTEXT']}/servlet/system/user/ChangeDomain?cId=<%=domain.getId()%>&<%=BSWeb.randomString()%>"><%=domain.getName()%></a></li>
 							<%
 								}
-										}
+							}
 							%>
 							
 						</ul>
@@ -120,7 +120,7 @@ http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html
 			Menu menuUser = (Menu) session.getAttribute("Menu");
 			//Boolean haveMore = null;
 			if (menuUser != null) {
-				String ctxPath = request.getContextPath();
+				String ctxPath = request.getServletContext().getAttribute("DALEA_CONTEXT").toString();
 				List<Submenu> main = menuUser.list();
 				Option opt = null;
 				String url = null;

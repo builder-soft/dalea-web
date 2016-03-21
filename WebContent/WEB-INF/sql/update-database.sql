@@ -24,7 +24,7 @@ ALTER TABLE bsframework.tsession CHANGE cSessionId cToken varchar(50) NOT NULL;
 
 ALTER TABLE bsframework.tSession ADD INDEX Index_Token (cToken ASC);
 
-CREATE TABLE tConfig (
+CREATE TABLE bsframework.tConfig (
   cId bigint(20) NOT NULL AUTO_INCREMENT,
   cKey varchar(20) NOT NULL UNIQUE,
   cValue varchar(300) NOT NULL,
@@ -32,6 +32,6 @@ CREATE TABLE tConfig (
   UNIQUE KEY cId (cId)
 ) ENGINE=InnoDB;
 
-INSERT INTO tConfig(cKey, cValue) VALUES('DALEA_CONTEXT', '/dalea-web');
-INSERT INTO tConfig(cKey, cValue) VALUES('TIMECTRL_CONTEXT', '/timectrl-web');
-INSERT INTO tConfig(cKey, cValue) VALUES('PUBLIC_CONTEXT', 'http://www.buildersoft.cl');
+INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('DALEA_CONTEXT', '/dalea-web');
+INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('TIMECTRL_CONTEXT', '/timectrl-web');
+INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('STATIC_CONTEXT', 'http://www.buildersoft.cl/dalea');

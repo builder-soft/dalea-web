@@ -33,8 +33,8 @@ import cl.buildersoft.framework.services.impl.BSUserServiceImpl;
 import cl.buildersoft.framework.util.BSConfig;
 import cl.buildersoft.framework.util.BSConnectionFactory;
 import cl.buildersoft.framework.util.BSDateTimeUtil;
-import cl.buildersoft.framework.util.BSHttpServlet_;
 import cl.buildersoft.framework.util.BSUtils;
+import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
 
 /**
  * Servlet implementation class ValidateServlet

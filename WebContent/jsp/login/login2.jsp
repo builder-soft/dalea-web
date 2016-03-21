@@ -1,5 +1,5 @@
 <%@page import="cl.buildersoft.framework.util.BSWeb"%>
-<%@page import="cl.buildersoft.framework.util.BSHttpServlet_"%>
+<%@page import="cl.buildersoft.framework.web.servlet.BSHttpServlet_"%>
 <%
 	BSHttpServlet_ hs = new BSHttpServlet_();
 	hs.deleteSession(request, response);
@@ -144,11 +144,6 @@ body {
 			</div>
 		</div>
 	</div>
-	<!-- 
-	<%= application.getAttribute("DALEA_CONTEXT") %><br>
-	<%=	application.toString() %><br>
-	<%=getServletContext().toString()%><br>
-	 -->
 		 
 </body>
 </html>

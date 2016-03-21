@@ -3,21 +3,78 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
 	<display-name>dalea-web</display-name>
 
-
 	<welcome-file-list>
 		<welcome-file>jsp/login/login2.jsp</welcome-file>
 	</welcome-file-list>
 
- 
 	<servlet>
-		<servlet-name>MyServlet</servlet-name>
-		<servlet-class>cl.buildersoft.dalea.StartUp</servlet-class>
+		<servlet-name>StartupServlet</servlet-name>
+		<servlet-class>cl.buildersoft.framework.web.servlet.StartupServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
- 
-	 
-   <context-param>
-        <param-name>A</param-name>
-        <param-value>Hola Mundo</param-value>
-    </context-param>	 
+
+
+	<!-- -->
+	<filter>
+		<filter-name>SessionFilter</filter-name>
+		<filter-class>cl.buildersoft.framework.web.filter.SessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SessionFilter</filter-name>
+		<url-pattern>/servlet/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>UserExistsFilter</filter-name>
+		<filter-class>cl.buildersoft.framework.web.filter.UserExistsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UserExistsFilter</filter-name>
+		<url-pattern>/servlet/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+
+
+
+
+
+	<filter>
+		<filter-name>LV</filter-name>
+		<filter-class>cl.buildersoft.framework.web.filter.LicenseValidationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LV</filter-name>
+		<url-pattern>/servlet/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>cl.buildersoft.framework.web.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>ENCODING</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	<filter>
+		<filter-name>NoCacheFilter</filter-name>
+		<filter-class>cl.buildersoft.framework.web.filter.NoCacheFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>NoCacheFilter</filter-name>
+		<url-pattern>/servlet/*</url-pattern>
+		<url-pattern>/jsp/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	<!-- -->
+
+
+
 </web-app>
