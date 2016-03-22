@@ -7,13 +7,13 @@
 <!--
 	var contextPath = "${applicationScope['TIMECTRL_CONTEXT']}";
 	function onLoadPage() {
-		try {
+		try {/*
 			loadCurrentVersion();
 			loadCurrentMarks();
 			loadOverdue();
 			loadLastRead();
 			loadOfflineMch();
-			loadEmployeeWORut();
+			loadEmployeeWORut();*/
 		} catch (e) {
 			//alert(e);
 		}
