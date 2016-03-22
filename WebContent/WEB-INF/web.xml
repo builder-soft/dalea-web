@@ -24,7 +24,7 @@
 		<url-pattern>/servlet/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
-
+<!-- 
 	<filter>
 		<filter-name>UserExistsFilter</filter-name>
 		<filter-class>cl.buildersoft.framework.web.filter.UserExistsFilter</filter-class>
@@ -35,7 +35,8 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
-
+ -->
+ 
 
 
 

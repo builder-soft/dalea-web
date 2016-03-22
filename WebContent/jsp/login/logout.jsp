@@ -23,6 +23,5 @@
 		cf.closeConnection(conn);
 	}
 
-	//	request.getSession(false).invalidate();
-	response.sendRedirect(getServletContext().getAttribute("DALEA_CONTEXT").toString());
+	response.sendRedirect(getServletContext().getAttribute("TIMECTRL_CONTEXT").toString());
 %>

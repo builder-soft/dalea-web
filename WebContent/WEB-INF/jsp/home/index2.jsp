@@ -7,13 +7,17 @@
 <!--
 	var contextPath = "${applicationScope['TIMECTRL_CONTEXT']}";
 	function onLoadPage() {
-		try {/*
+		try {
 			loadCurrentVersion();
+			
 			loadCurrentMarks();
 			loadOverdue();
 			loadLastRead();
 			loadOfflineMch();
-			loadEmployeeWORut();*/
+			loadEmployeeWORut();
+			/**	
+			
+*/
 		} catch (e) {
 			//alert(e);
 		}
@@ -33,7 +37,7 @@
 	}
 	
 	function loadCurrentVersion() {
-		getData("CurrentVersion", "CurrentVersionLabel");
+		getData("CurrentVersion", "CurrentVersionLabel", true);
 	}
 
 	function loadLastRead() {
@@ -49,6 +53,10 @@
 	}
 
 	function getData(key, element) {
+		getData(key, element, true);
+	}
+	
+	function getData(key, element, sync) {
 //		alert(contextPath + '/servlet/ajax/GetIndicator');
 		$.ajax({
 			type : "GET",
@@ -57,12 +65,12 @@
 			data : {
 				Key : key
 			},
-			async : true,
+			async : sync, /*was true*/
 			success : function(data) {
 				$('#' + element).text(data);
 			},
 			error : function(data, textStatus, xhr) {
-				$('#' + element).text("Cancelado");
+				$('#' + element).text("Cancelado.");
 			}
 		});
 	}

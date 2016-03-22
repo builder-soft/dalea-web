@@ -120,7 +120,7 @@ http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html
 			Menu menuUser = (Menu) session.getAttribute("Menu");
 			//Boolean haveMore = null;
 			if (menuUser != null) {
-				String ctxPath = request.getServletContext().getAttribute("DALEA_CONTEXT").toString();
+//				String ctxPath = request.getServletContext().getAttribute("DALEA_CONTEXT").toString();
 				List<Submenu> main = menuUser.list();
 				Option opt = null;
 				String url = null;
@@ -128,8 +128,8 @@ http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html
 				for (Submenu submenu : main) {
 					opt = submenu.getOption();
 					out += "<li" + (submenu.list().size() > 0 ? " " : "") + ">";
-					out += option2String(opt, ctxPath, true);
-					out += writeSubMenu(submenu, ctxPath);
+					out += option2String(request, opt, true);
+					out += writeSubMenu(request, submenu);
 					out += "</li>\n";
 				}
 			}
@@ -137,7 +137,7 @@ http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html
 		return out;
 	}
 
-	private String option2String(Option opt, String contextPath, Boolean isRoot) {
+	private String option2String(HttpServletRequest request, Option opt, Boolean isRoot) {
 		String out = "";
 		String url = opt.getUrl();
 		String label = opt.getLabel();
@@ -149,7 +149,7 @@ http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html
 		if (url.length() > 0) {
 			out = "<a ";
 			if (url.startsWith("/")) {
-				url = contextPath + url;
+				url = request.getServletContext().getAttribute(opt.getContext()) + url;
 			}
 
 			if (url.indexOf("?") > -1) {
@@ -171,7 +171,7 @@ http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html
 		return out;
 	}
 
-	private String writeSubMenu(Submenu menu, String contextPath) {
+	private String writeSubMenu(HttpServletRequest request, Submenu menu) {
 		Option opt = null;
 		String url = null;
 		String label = null;
@@ -182,8 +182,8 @@ http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html
 
 		for (Submenu submenu : menuList) {
 			out += "<li>";
-			out += option2String(submenu.getOption(), contextPath, false);
-			out += writeSubMenu(submenu, contextPath);
+			out += option2String(request, submenu.getOption(), false);
+			out += writeSubMenu(request, submenu);
 			out += "</li>\n";
 		}
 		out += count > 0 ? "</ul>\n" : "\n";
