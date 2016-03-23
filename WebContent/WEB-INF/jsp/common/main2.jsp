@@ -1,3 +1,8 @@
+<%@page import="cl.buildersoft.framework.dataType.BSDataTypeEnum"%>
+<%@page import="cl.buildersoft.framework.dataType.BSDataType"%>
+<%@page import="cl.buildersoft.framework.type.Semaphore"%>
+<%@page import="cl.buildersoft.framework.web.servlet.HttpServletCRUD"%>
+<%@page import="cl.buildersoft.framework.util.crud.BSField"%>
 <%@page import="cl.buildersoft.framework.util.crud.BSActionType"%>
 <%@page import="cl.buildersoft.framework.util.crud.BSAction"%>
 <%@page import="cl.buildersoft.framework.util.BSDateTimeUtil"%>
@@ -40,7 +45,7 @@
 	</h1>
 </div>
 
-<%@ include file="/WEB-INF/jsp/table/search2.jsp"%>
+<%@ include file="/WEB-INF/jsp/common/search2.jsp"%>
 <div class="row">
 	<form method="post"
 		action="${pageContext.request.contextPath}/servlet/common/crud/DeleteRecords"
