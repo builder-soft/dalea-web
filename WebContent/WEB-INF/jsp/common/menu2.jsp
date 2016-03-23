@@ -201,7 +201,7 @@ http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html
 		cf.closeConnection(conn);
 
 		if (option != null) {
-			out = "<a href='" +  request.getContextPath() + option.getUrl() + "'>" + option.getLabel() + "</a>";
+			out = "<a href='" +  request.getServletContext().getAttribute("DALEA_CONTEXT") + option.getUrl() + "'>" + option.getLabel() + "</a>";
 		}
 		return out;
 	}

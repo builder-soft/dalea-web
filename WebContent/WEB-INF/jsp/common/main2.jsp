@@ -15,7 +15,6 @@
 	ResultSet rs = (ResultSet) request.getAttribute("Data");
 	Connection conn = (Connection) request.getAttribute("Conn");
 	BSTableConfig table = (BSTableConfig) session.getAttribute("BSTable");
-	String ctxPath = request.getContextPath();
 	String script = table.getScript();
 
 	BSAction[] tableActions = table.getActions(BSActionType.Table);
@@ -33,8 +32,10 @@
 <%
 	if (script.length() > 0) {
 %>
+<!-- 
 <script
 	src="${pageContext.request.contextPath}<%=script%>?<%=Math.random()%>"></script>
+	 -->
 <%
 	}
 %>
@@ -48,7 +49,7 @@
 <%@ include file="/WEB-INF/jsp/common/search2.jsp"%>
 <div class="row">
 	<form method="post"
-		action="${pageContext.request.contextPath}/servlet/common/crud/DeleteRecords"
+		_action="${pageContext.request.contextPath}/servlet/common/crud/DeleteRecords"
 		id='frm'>
 
 		<div class="table-responsive">
@@ -90,7 +91,7 @@
 					while (rs.next()) {
 						values = values2Array(rs, pkName, fields);
 
-						out.println(writeValues(values, fields, rowCount, ctxPath, request, selectorType, conn));
+						out.println(writeValues(values, fields, rowCount, request, selectorType, conn));
 						rowCount++;
 					}
 
@@ -115,7 +116,7 @@
 							out.print("id='o" + id + "' ");
 							out.print(action.getDisabled() ? "disabled" : "");
 
-							out.print(" onclick='javascript:window.location.href=\"" + ctxPath + action.getUrl() + "\"'");
+							out.print(" onclick='javascript:window.location.href=\"" + request.getServletContext().getAttribute(action.getContext()) + action.getUrl() + "\"'");
 							out.print(">" + action.getLabel() + "</button>");
 						}
 
@@ -141,11 +142,11 @@
 							if(msg.length()>0){
 								js += " onclick='javascript:";
 								js += "if(confirm(\""+msg+"\")){";
-								js += " doAction(\"" + ctxPath + action.getUrl() + "\", \"" + action.getCode()
+								js += " doAction(\"" + request.getServletContext().getAttribute(action.getContext()) + action.getUrl() + "\", \"" + action.getCode()
 										+ method + "\");";
 								js += "}'";
 							}else{
-								js += " onclick='javascript:doAction(\"" + ctxPath + action.getUrl() + "\", \"" + action.getCode()
+								js += " onclick='javascript:doAction(\"" + request.getServletContext().getAttribute(action.getContext()) + action.getUrl() + "\", \"" + action.getCode()
 										+ method + "\");'";
 							}
 //							out.print(js + ":doAction(\"" + ctxPath + action.getUrl() + "\", \"" + action.getCode()
@@ -167,7 +168,7 @@
 
 							out.print(action.getDisabled() ? "disabled" : "");
 
-							out.print(" onclick='javascript:doAction(\"" + ctxPath + action.getUrl() + "\", \"" + action.getCode()
+							out.print(" onclick='javascript:doAction(\"" + request.getServletContext().getAttribute(action.getContext()) + action.getUrl() + "\", \"" + action.getCode()
 									+ method + "\");'");
 
 							out.print(">" + action.getLabel() + "</button>");
@@ -183,10 +184,10 @@
 <%@ include file="/WEB-INF/jsp/common/footer2.jsp"%>
 <%
 	new BSmySQL().closeConnection(conn);
-conn=null;
+	conn=null;
 %>
 
-<%!private String writeValues(Object[] values, BSField[] fields, Integer rowCount, String ctxPath, HttpServletRequest request,
+<%!private String writeValues(Object[] values, BSField[] fields, Integer rowCount, HttpServletRequest request,
 			Integer selectorType, Connection conn) {
 		String out = "";
 		Object value = null;

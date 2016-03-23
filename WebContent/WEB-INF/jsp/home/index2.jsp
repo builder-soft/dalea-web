@@ -37,7 +37,7 @@
 	}
 	
 	function loadCurrentVersion() {
-		getData("CurrentVersion", "CurrentVersionLabel", true);
+		getData("CurrentVersion", "CurrentVersionLabel", false);
 	}
 
 	function loadLastRead() {
