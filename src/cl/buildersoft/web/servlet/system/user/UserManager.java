@@ -81,6 +81,7 @@ public class UserManager extends HttpServletCRUD {
 
 		rolRelation.setNatTable(domain.getDatabase(), "tR_UserRol", domain.getDatabase(), "tRol");
 		rolRelation.setLabel("Roles de usuario");
+		rolRelation.setContext("DALEA_CONTEXT");
 		table.addAction(rolRelation);
 
 		return table;

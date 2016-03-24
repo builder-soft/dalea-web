@@ -8,22 +8,23 @@
 	Object id = request.getParameter("cId");
 	if (id == null) {
 		id = (Long) request.getAttribute("cId");
-	//	nextAction += "?Next=/servlet/Home";
+		//	nextAction += "?Next=/servlet/Home";
 		cancelAction = "/servlet/Home";
 	}
-	
-	if(passwordIsNull){ /**Es cuando la password la cambia el administrador*/
-		nextAction += "?Next="+request.getServletContext().getAttribute("DALEA_CONTEXT")+"/servlet/system/user/UserManager";
-	}else{
-		nextAction += "?Next="+request.getServletContext().getAttribute("DALEA_CONTEXT")+"/servlet/Home";
+
+	if (passwordIsNull) {
+		/**Es cuando la password la cambia el administrador*/
+		nextAction += "?Next=" + request.getServletContext().getAttribute("DALEA_CONTEXT")
+				+ "/servlet/system/user/UserManager";
+	} else {
+		nextAction += "?Next=" + request.getServletContext().getAttribute("DALEA_CONTEXT") + "/servlet/Home";
 	}
-	
 %>
 <div class="page-header">
-	<h1>Cambio de clave <%=passwordIsNull %></h1>
+	<h1>Cambio de clave <%=passwordIsNull%></h1>
 </div>
 
-<form action="${pageContext.request.contextPath}<%=nextAction%>"
+<form action="${applicationScope['DALEA_CONTEXT']}<%=nextAction%>"
 	method="post" class="form-horizontal" role="form">
 	<input type="hidden" name="cId" value="<%=id%>">
 	<input type="hidden" name="Reset" value="<%=passwordIsNull%>">
@@ -53,8 +54,6 @@
 		</div>
 	</div>
 
-
-
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="CommitPassword">Confirme
 			clave:</label>
@@ -67,7 +66,7 @@
 	 
 	<button type="submit" class="btn btn-primary">Confirmar</button>
 	<a class="btn btn-link"
-		href="${pageContext.request.contextPath}<%=cancelAction%>">Cancelar</a>
+		href="${applicationScope['DALEA_CONTEXT']}<%=cancelAction%>">Cancelar</a>
 		 
 </form>
 
