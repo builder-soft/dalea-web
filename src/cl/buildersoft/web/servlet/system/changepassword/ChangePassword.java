@@ -17,11 +17,11 @@ import cl.buildersoft.framework.exception.BSUserException;
 import cl.buildersoft.framework.util.BSConfig;
 import cl.buildersoft.framework.util.BSConnectionFactory;
 import cl.buildersoft.framework.util.BSDateTimeUtil;
-import cl.buildersoft.framework.util.BSHttpServlet;
 import cl.buildersoft.framework.util.BSSecurity;
+import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
 
 @WebServlet("/servlet/system/changepassword/ChangePassword")
-public class ChangePassword extends BSHttpServlet {
+public class ChangePassword extends BSHttpServlet_ {
 	private static final String UPPER_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private static final String LOWER_LETTERS = UPPER_LETTERS.toLowerCase();
 	private static final String NUMBERS = "0123456789";

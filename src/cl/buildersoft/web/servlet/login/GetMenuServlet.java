@@ -49,7 +49,7 @@ public class GetMenuServlet extends BSHttpServlet_ {
 		}
 		String page = nextServlet != null ? nextServlet : "/servlet/Home";
 		forward(request, response, page, false);
-		// request.getRequestDispatcher(page).forward(request, response);
+		 
 	}
 
 }

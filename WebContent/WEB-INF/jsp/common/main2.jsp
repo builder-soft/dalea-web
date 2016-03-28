@@ -1,7 +1,7 @@
 <%@page import="cl.buildersoft.framework.dataType.BSDataTypeEnum"%>
 <%@page import="cl.buildersoft.framework.dataType.BSDataType"%>
 <%@page import="cl.buildersoft.framework.type.Semaphore"%>
-<%@page import="cl.buildersoft.framework.web.servlet.HttpServletCRUD"%>
+<%@page import="cl.buildersoft.web.servlet.common.crud.HttpServletCRUD_WillBeDelete"%>
 <%@page import="cl.buildersoft.framework.util.crud.BSField"%>
 <%@page import="cl.buildersoft.framework.util.crud.BSActionType"%>
 <%@page import="cl.buildersoft.framework.util.crud.BSAction"%>
@@ -197,7 +197,7 @@
 
 		Object servletObject = request.getAttribute("ServletManager");
 		if (servletObject != null) {
-			HttpServletCRUD servletCRUD = (HttpServletCRUD) servletObject;
+			HttpServletCRUD_WillBeDelete servletCRUD = (HttpServletCRUD_WillBeDelete) servletObject;
 			Semaphore semaphore = servletCRUD.setSemaphore(conn, values);
 			if (semaphore != null) {
 				switch (semaphore) {
@@ -370,6 +370,4 @@
 
 	private String capitalize(String s) {
 		return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
-	}
-	
-	%>
+	}%>

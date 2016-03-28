@@ -6,19 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import cl.buildersoft.framework.type.Semaphore;
 import cl.buildersoft.framework.beans.Domain;
+import cl.buildersoft.framework.beans.LogInfoBean;
 import cl.buildersoft.framework.beans.User;
-import cl.buildersoft.framework.business.services.EventLogService;
-import cl.buildersoft.framework.business.services.ServiceFactory;
+import cl.buildersoft.framework.type.Semaphore;
 import cl.buildersoft.framework.util.crud.BSAction;
 import cl.buildersoft.framework.util.crud.BSActionType;
 import cl.buildersoft.framework.util.crud.BSField;
+import cl.buildersoft.framework.util.crud.BSHttpServletCRUD;
 import cl.buildersoft.framework.util.crud.BSTableConfig;
-import cl.buildersoft.framework.web.servlet.HttpServletCRUD;
 
 @WebServlet("/servlet/system/user/UserManager")
-public class UserManager extends HttpServletCRUD {
+public class UserManager extends BSHttpServletCRUD {
 	private static final long serialVersionUID = -3497399350893131897L;
 
 	@Override
@@ -84,6 +83,8 @@ public class UserManager extends HttpServletCRUD {
 		rolRelation.setContext("DALEA_CONTEXT");
 		table.addAction(rolRelation);
 
+		configEventLog(table, getCurrentUser(request).getId());
+
 		return table;
 	}
 
@@ -92,11 +93,7 @@ public class UserManager extends HttpServletCRUD {
 		return null;
 	}
 
-	@Override
-	public String getBusinessClass() {
-		return this.getClass().getName();
-	}
-
+	/**<code>
 	@Override
 	public void writeEventLog(Connection conn, String action, HttpServletRequest request, BSTableConfig table) {
 		EventLogService event = ServiceFactory.createEventLogService();
@@ -104,12 +101,13 @@ public class UserManager extends HttpServletCRUD {
 		if ("INSERT".equals(action)) {
 			event.writeEntry(conn, getCurrentUser(request).getId(), "NEW_USER", "Crea un nuevo usuario %s, mail %s", table
 					.getField("cName").getValue(), table.getField("cMail").getValue());
+
 		}
 		if ("DELETE".equals(action)) {
 			event.writeEntry(conn, getCurrentUser(request).getId(), "DELETE_USER",
-					"Borra usuario %s, su Id fué %s\n mail %s\n y perfil %s", table.getField("cName").getValue(), table
-							.getField("cId").getValue(), table.getField("cMail").getValue(), Boolean.parseBoolean(table
-							.getField("cAdmin").getValue().toString()) ? "Administrador" : "Usuario");
+					"Borra usuario %s, su Id fué %s\n mail %s\n y perfil %s", table.getField("cName").getValue(),
+					table.getField("cId").getValue(), table.getField("cMail").getValue(),
+					Boolean.parseBoolean(table.getField("cAdmin").getValue().toString()) ? "Administrador" : "Usuario");
 		}
 		if ("UPDATE".equals(action)) {
 			event.writeEntry(conn, getCurrentUser(request).getId(), "UPDATE_USER",
@@ -118,5 +116,30 @@ public class UserManager extends HttpServletCRUD {
 					Boolean.parseBoolean(table.getField("cAdmin").getValue().toString()) ? "Si" : "No");
 		}
 	}
+</code>*/
+	
+	@Override
+	protected void configEventLog(BSTableConfig table, Long userId) {
+		LogInfoBean li = new LogInfoBean();
+		li.setAction("INSERT");
+		li.setEventKey("NEW_USER");
+		li.setMessage("Crea un nuevo usuario");
+		li.setUserId(userId);
+		table.addLogInfo(li);
 
+		li = new LogInfoBean();
+		li.setAction("DELETE");
+		li.setEventKey("DELETE_USER");
+		li.setMessage("Borra usuario");
+		li.setUserId(userId);
+		table.addLogInfo(li);
+
+		li = new LogInfoBean();
+		li.setAction("UPDATE");
+		li.setEventKey("UPDATE_USER");
+		li.setMessage("Actualiza usuario");
+		li.setUserId(userId);
+		table.addLogInfo(li);
+
+	}
 }

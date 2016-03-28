@@ -16,15 +16,13 @@ import javax.servlet.http.HttpSession;
 import cl.buildersoft.framework.database.BSmySQL;
 import cl.buildersoft.framework.exception.BSProgrammerException;
 import cl.buildersoft.framework.util.BSConnectionFactory;
-import cl.buildersoft.framework.util.BSFactory;
 import cl.buildersoft.framework.util.BSUtils;
 import cl.buildersoft.framework.util.BSWeb;
 import cl.buildersoft.framework.util.crud.BSField;
 import cl.buildersoft.framework.util.crud.BSTableConfig;
-import cl.buildersoft.framework.web.servlet.HttpServletCRUD;
 
 @WebServlet("/servlet/common/UpdateRecord")
-public class UpdateRecord extends BSHttpServletCRUD {
+public class UpdateRecord extends AbstractServletUtil {
 	private static final Logger LOG = Logger.getLogger(UpdateRecord.class.getName());
 	private static final long serialVersionUID = 729493572423196326L;
 
@@ -35,10 +33,9 @@ public class UpdateRecord extends BSHttpServletCRUD {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		BSTableConfig table = null;
-		String businessClass = null;
+
 		synchronized (session) {
 			table = (BSTableConfig) session.getAttribute("BSTable");
-			businessClass = (String) session.getAttribute("BusinessClass");
 		}
 
 		// BSField[] fields = table.getFields();
@@ -71,7 +68,7 @@ public class UpdateRecord extends BSHttpServletCRUD {
 			params = getParams(conn, request, fields, idField);
 
 			fillTableWithRecord(conn, table, idField.getValueAsLong());
-			writeEventLog(conn, businessClass, request, table);
+			writeEventLog(conn, table, "UPDATE", getCurrentUser(request).getId());
 
 			mysql.update(conn, sql, params);
 		} catch (Exception e) {
@@ -114,11 +111,4 @@ public class UpdateRecord extends BSHttpServletCRUD {
 		return sql;
 	}
 
-	private void writeEventLog(Connection conn, String businessClass, HttpServletRequest request, BSTableConfig table) {
-		BSFactory factory = new BSFactory();
-		HttpServletCRUD crudManager = (HttpServletCRUD) factory.getInstance(businessClass);
-
-		crudManager.writeEventLog(conn, "UPDATE", request, table);
-
-	}
 }

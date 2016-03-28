@@ -6,11 +6,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import cl.buildersoft.framework.type.Semaphore;
+import cl.buildersoft.framework.util.crud.BSHttpServletCRUD;
 import cl.buildersoft.framework.util.crud.BSTableConfig;
-import cl.buildersoft.framework.web.servlet.HttpServletCRUD;
 
 @WebServlet("/servlet/config/systemparams/ParameterManager")
-public class ParameterManager extends HttpServletCRUD   {
+public class ParameterManager extends BSHttpServletCRUD {
 	private static final long serialVersionUID = 5621476235297476355L;
 
 	public ParameterManager() {
@@ -24,7 +24,7 @@ public class ParameterManager extends HttpServletCRUD   {
 		table.setTitle("Parametros del sistema");
 
 		table.getField("cKey").setLabel("Llave");
-		table.getField("cLabel").setLabel("Descripción");
+		table.getField("cLabel").setLabel("DescripciÃ³n");
 		table.getField("cValue").setLabel("Valor");
 		table.getField("cDataType").setLabel("Tipo de dato");
 
@@ -41,13 +41,31 @@ public class ParameterManager extends HttpServletCRUD   {
 	}
 
 	@Override
-	public String getBusinessClass() {
-		return this.getClass().getName();
-	}
+	protected void configEventLog(BSTableConfig table, Long userId) {
+		/**
+		 * <code>
+		LogInfoBean li = new LogInfoBean();
+		li.setAction("INSERT");
+		li.setEventKey("NEW_USER");
+		li.setMessage("Crea un nuevo usuario");
+		li.setUserId(userId);
+		table.addLogInfo(li);
+		
+		li = new LogInfoBean();
+		li.setAction("DELETE");
+		li.setEventKey("DELETE_USER");
+		li.setMessage("Borra usuario");
+		li.setUserId(userId);
+		table.addLogInfo(li);
 
-	@Override
-	public void writeEventLog(Connection conn, String action, HttpServletRequest request, BSTableConfig table) {
-		// TODO Auto-generated method stub
-
+		li = new LogInfoBean();
+		li.setAction("UPDATE");
+		li.setEventKey("UPDATE_USER");
+		li.setMessage("Actualiza usuario");
+		li.setUserId(userId);
+		table.addLogInfo(li);
+		
+		</code>
+		 */
 	}
 }

@@ -16,11 +16,11 @@ import cl.buildersoft.framework.beans.DomainAttribute;
 import cl.buildersoft.framework.business.services.EventLogService;
 import cl.buildersoft.framework.business.services.ServiceFactory;
 import cl.buildersoft.framework.util.BSConnectionFactory;
-import cl.buildersoft.framework.util.BSHttpServlet;
+import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
 import cl.buildersoft.web.servlet.login.ValidateLoginServlet;
 
 @WebServlet("/servlet/system/user/ChangeDomain")
-public class ChangeDomain extends BSHttpServlet {
+public class ChangeDomain extends BSHttpServlet_ {
 	private static final long serialVersionUID = -5231577745476555171L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
