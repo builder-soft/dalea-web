@@ -1,4 +1,4 @@
-package cl.buildersoft.web.servlet.common;
+package cl.buildersoft.web.servlet.common.crud;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import cl.buildersoft.framework.database.BSmySQL;
+import cl.buildersoft.framework.exception.BSProgrammerException;
 import cl.buildersoft.framework.util.BSConnectionFactory;
 import cl.buildersoft.framework.util.BSFactory;
 import cl.buildersoft.framework.util.BSUtils;
@@ -21,7 +22,6 @@ import cl.buildersoft.framework.util.BSWeb;
 import cl.buildersoft.framework.util.crud.BSField;
 import cl.buildersoft.framework.util.crud.BSTableConfig;
 import cl.buildersoft.framework.web.servlet.HttpServletCRUD;
-import cl.buildersoft.web.servlet.common.crud.BSHttpServletCRUD;
 
 @WebServlet("/servlet/common/UpdateRecord")
 public class UpdateRecord extends BSHttpServletCRUD {
@@ -76,7 +76,7 @@ public class UpdateRecord extends BSHttpServletCRUD {
 			mysql.update(conn, sql, params);
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, e.getMessage(), e);
-
+			throw new BSProgrammerException(e);
 		} finally {
 			cf.closeConnection(conn);
 		}

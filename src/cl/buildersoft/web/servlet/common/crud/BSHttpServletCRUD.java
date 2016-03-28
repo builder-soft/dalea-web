@@ -6,12 +6,12 @@ import java.sql.SQLException;
 
 import cl.buildersoft.framework.database.BSmySQL;
 import cl.buildersoft.framework.exception.BSDataBaseException;
-import cl.buildersoft.framework.util.BSHttpServlet;
 import cl.buildersoft.framework.util.BSUtils;
 import cl.buildersoft.framework.util.crud.BSField;
 import cl.buildersoft.framework.util.crud.BSTableConfig;
+import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
 
-public class BSHttpServletCRUD extends BSHttpServlet {
+public class BSHttpServletCRUD extends BSHttpServlet_ {
 	private static final long serialVersionUID = BSHttpServletCRUD.class.getName().hashCode();
 
 	protected void fillTableWithRecord(Connection conn, BSTableConfig table, Long id) {
