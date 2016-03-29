@@ -35,3 +35,6 @@ CREATE TABLE bsframework.tConfig (
 INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('DALEA_CONTEXT', '/dalea-web');
 INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('TIMECTRL_CONTEXT', '/timectrl-web');
 INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('STATIC_CONTEXT', 'http://www.buildersoft.cl/dalea');
+
+
+ALTER TABLE tSessionData MODIFY cData MEDIUMTEXT;
