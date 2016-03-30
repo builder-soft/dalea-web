@@ -1,7 +1,7 @@
+<%@page import="cl.buildersoft.framework.util.crud.BSHttpServletCRUD"%>
 <%@page import="cl.buildersoft.framework.dataType.BSDataTypeEnum"%>
 <%@page import="cl.buildersoft.framework.dataType.BSDataType"%>
 <%@page import="cl.buildersoft.framework.type.Semaphore"%>
-<%@page import="cl.buildersoft.web.servlet.common.crud.HttpServletCRUD_WillBeDelete"%>
 <%@page import="cl.buildersoft.framework.util.crud.BSField"%>
 <%@page import="cl.buildersoft.framework.util.crud.BSActionType"%>
 <%@page import="cl.buildersoft.framework.util.crud.BSAction"%>
@@ -197,7 +197,7 @@
 
 		Object servletObject = request.getAttribute("ServletManager");
 		if (servletObject != null) {
-			HttpServletCRUD_WillBeDelete servletCRUD = (HttpServletCRUD_WillBeDelete) servletObject;
+			BSHttpServletCRUD servletCRUD = (BSHttpServletCRUD) servletObject;
 			Semaphore semaphore = servletCRUD.setSemaphore(conn, values);
 			if (semaphore != null) {
 				switch (semaphore) {
