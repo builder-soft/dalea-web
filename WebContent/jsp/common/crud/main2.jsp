@@ -14,6 +14,10 @@
 <%
 	ResultSet rs = (ResultSet) request.getAttribute("Data");
 	Connection conn = (Connection) request.getAttribute("Conn");
+	if(conn == null){
+		BSConnectionFactory cf = new BSConnectionFactory();
+		conn = cf.getConnection(request);
+	}
 	BSTableConfig table = (BSTableConfig) session.getAttribute("BSTable");
 	String script = table.getScript();
 
