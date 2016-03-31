@@ -6,26 +6,24 @@
 <%@page import="cl.buildersoft.framework.util.crud.BSActionType"%>
 <%@page import="cl.buildersoft.framework.util.crud.BSAction"%>
 <%@page import="cl.buildersoft.framework.util.BSDateTimeUtil"%>
- 
- 
 <%@page import="cl.buildersoft.framework.database.BSmySQL"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.ResultSet"%>
 <%
-	ResultSet rs = (ResultSet) request.getAttribute("Data");
-	Connection conn = (Connection) request.getAttribute("Conn");
-	if(conn == null){
-		BSConnectionFactory cf = new BSConnectionFactory();
-		conn = cf.getConnection(request);
-	}
+//	ResultSet rs = (ResultSet) request.getAttribute("Data");
+//	Connection conn = (Connection) request.getAttribute("Conn");
+//	if(conn == null){
+//		BSConnectionFactory cf = new BSConnectionFactory();
+//		conn = cf.getConnection(request);
+//	}
 	BSTableConfig table = (BSTableConfig) session.getAttribute("BSTable");
+	List<Object[]> matrix=	table.getData();
+	
 	String script = table.getScript();
 
 	BSAction[] tableActions = table.getActions(BSActionType.Table);
 	BSAction[] recordActions = table.getActions(BSActionType.Record);
 	BSAction[] multirecordActions = table.getActions(BSActionType.MultiRecord);
 
-	Integer selectorType = getSelectorType(tableActions, recordActions, multirecordActions, request, conn);
+	Integer selectorType = getSelectorType(tableActions, recordActions, multirecordActions, request);
 %>
 
 <%@ include file="/WEB-INF/jsp/common/header2.jsp"%>
@@ -51,6 +49,7 @@
 </div>
 
 <%@ include file="/WEB-INF/jsp/common/search2.jsp"%>
+
 <div class="row">
 	<form method="post"
 		_action="${pageContext.request.contextPath}/servlet/common/crud/DeleteRecords"
@@ -66,7 +65,7 @@
 					String pkName = null;
 
 					int rowCount = 0;
-					Object[] values = null;
+//					Object[] values = null;
 					out.println("<thead><tr>");
 
 					if (selectorType > 0) {
@@ -92,14 +91,20 @@
 					}
 					out.println("</tr></thead><tbody>");
 
+					for(Object[] values : matrix){
+						out.println(writeValues(values, fields, rowCount, request, selectorType));
+						rowCount++;
+					}
+					
+					/**<code>
 					while (rs.next()) {
 						values = values2Array(rs, pkName, fields);
-
 						out.println(writeValues(values, fields, rowCount, request, selectorType, conn));
 						rowCount++;
 					}
+					</code>*/
 
-					rs.close();
+//					rs.close();
 				%>
 				</tbody>
 			</table>
@@ -114,7 +119,7 @@
 					out.print("<br>");
 					out.print("<div id='TableActions' style='float:left;'>");
 					for (BSAction action : tableActions) {
-						if (BSWeb.canUse(action.getCode(), request, conn)) {
+						if (BSWeb.canUse(action.getCode(), request)) {
 							String id = capitalize(action.getCode());
 							out.print("<button class='btn btn-default' type='button' ");
 							out.print("id='o" + id + "' ");
@@ -129,7 +134,7 @@
 
 					out.print("<div id='MultirecordActions' style='float:left;display:none;'>");
 					for (BSAction action : multirecordActions) {
-						if (BSWeb.canUse(action.getCode(), request, conn)) {
+						if (BSWeb.canUse(action.getCode(), request)) {
 							String id = capitalize(action.getDefaultCode());
 							String msg = action.getWarningMessage();
 							String method = action.getMethod() != null ? "&Method=" + action.getMethod() : "";
@@ -164,7 +169,7 @@
 
 					out.print("<div id='RecordActions' style='float:left;display:none;'>");
 					for (BSAction action : recordActions) {
-						if (BSWeb.canUse(action.getCode(), request, conn)) {
+						if (BSWeb.canUse(action.getCode(), request)) {
 							String id = capitalize(action.getCode());
 							String method = action.getMethod() != null ? "&Method=" + action.getMethod() : "";
 							out.print("<button class='btn btn-default' type='button' ");
@@ -187,20 +192,24 @@
 
 <%@ include file="/WEB-INF/jsp/common/footer2.jsp"%>
 <%
-	new BSmySQL().closeConnection(conn);
-	conn=null;
+//	new BSmySQL().closeConnection(conn);
+//	conn=null;
 %>
 
 <%!private String writeValues(Object[] values, BSField[] fields, Integer rowCount, HttpServletRequest request,
-			Integer selectorType, Connection conn) {
+			Integer selectorType) {
 		String out = "";
 		Object value = null;
 		int i = 1;
 		//		String color = rowCount % 2 != 0 ? "cDataTD" : "cDataTD_odd";
 		String colorSemaphore = "";
 
+		
 		Object servletObject = request.getAttribute("ServletManager");
 		if (servletObject != null) {
+			BSConnectionFactory cf = new BSConnectionFactory();
+			Connection conn = cf.getConnection(request);
+			
 			BSHttpServletCRUD servletCRUD = (BSHttpServletCRUD) servletObject;
 			Semaphore semaphore = servletCRUD.setSemaphore(conn, values);
 			if (semaphore != null) {
@@ -219,7 +228,9 @@
 				}
 			}
 			out += "<tr class='" + colorSemaphore + "'>";
+			cf.closeConnection(conn);
 		}
+
 
 		if (selectorType > 0) {
 			String type = selectorType == 1 ? "radio" : "CHECKBOX";
@@ -275,6 +286,7 @@
 			}
 		}
 
+			
 		out += "</tr>";
 
 		return out;
@@ -300,6 +312,7 @@
 		return out;
 	}
 
+/**<code>
 	private Object[] values2Array(ResultSet rs, String pkName, BSField[] fields) throws Exception {
 		String name = null;
 		Object value = null;
@@ -319,9 +332,10 @@
 		}
 		return out;
 	}
+	</code>*/
 	
 	private Integer getSelectorType(BSAction[] tableActions, BSAction[] recordActions, BSAction[] multirecordActions,
-			HttpServletRequest request, Connection conn) {
+			HttpServletRequest request) {
 
 		Integer selectorType = 0;
 
@@ -330,21 +344,21 @@
 		Boolean haveMultirecordActions = Boolean.FALSE;
 
 		for (BSAction action : tableActions) {
-			if (BSWeb.canUse(action.getCode(), request, conn)) {
+			if (BSWeb.canUse(action.getCode(), request)) {
 				haveTableActions = Boolean.TRUE;
 				break;
 			}
 		}
 
 		for (BSAction action : multirecordActions) {
-			if (BSWeb.canUse(action.getCode(), request, conn)) {
+			if (BSWeb.canUse(action.getCode(), request)) {
 				haveMultirecordActions = Boolean.TRUE;
 				break;
 			}
 		}
 
 		for (BSAction action : recordActions) {
-			if (BSWeb.canUse(action.getCode(), request, conn)) {
+			if (BSWeb.canUse(action.getCode(), request)) {
 				haveRecordActions = Boolean.TRUE;
 				break;
 			}

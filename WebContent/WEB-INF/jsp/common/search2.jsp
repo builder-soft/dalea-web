@@ -43,15 +43,16 @@ function go(){
 <%!private String _return_path_context(HttpServletRequest request) {
 		BSTableConfig table = (BSTableConfig) request.getSession(false)
 				.getAttribute("BSTable");
-		String uri = table.getUri();
-		String ctxPath = request.getContextPath();
-		String out = ctxPath + uri;
+		String out = table.getUri();
+//		String ctxPath = request.getContextPath();
+//		String out = ctxPath + uri;
+//		String out = "ctx:"+ctxPath + " uri:"+uri;
 
 		return out;
 	}
 
 	private String write_input_field_for_search(HttpServletRequest request) {
 		String out = "<input name='Search' class='form-control' id='Search' size='30' maxlength='50' type='search' placeholder='Busqueda...' value='"
-				+ request.getAttribute("Search") + "'>";
+				+ request.getSession(false).getAttribute("Search") + "'>";
 		return out;
 	}%>

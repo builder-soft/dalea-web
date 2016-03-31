@@ -47,20 +47,20 @@
 	</script>
  -->
 <%!private Boolean paginationRequerid(HttpServletRequest request) {
-		BSPaging paging = (BSPaging) request.getAttribute("Paging");
+		BSPaging paging = (BSPaging) request.getSession(false).getAttribute("Paging");
 		return paging.getRequiresPaging();
 	}
 
 	private String write_info_pages_jsp(HttpServletRequest request) {
 		String out = "<label>";
-		BSPaging paging = (BSPaging) request.getAttribute("Paging");
+		BSPaging paging = (BSPaging) request.getSession(false).getAttribute("Paging");
 		out += paging.getCurrentPage() + "/" + paging.getPageCount();
 		out += "</label>";
 		return out;
 	}
 
 	private String write_first_link_jsp(HttpServletRequest request) {
-		BSPaging paging = (BSPaging) request.getAttribute("Paging");
+		BSPaging paging = (BSPaging) request.getSession(false).getAttribute("Paging");
 		String cssClass = "";
 		Integer currentPage = paging.getCurrentPage();
 
@@ -71,7 +71,7 @@
 	}
 
 	private String write_last_link_jsp(HttpServletRequest request) {
-		BSPaging paging = (BSPaging) request.getAttribute("Paging");
+		BSPaging paging = (BSPaging) request.getSession(false).getAttribute("Paging");
 		String cssClass = "";
 		Integer currentPage = paging.getCurrentPage();
 
@@ -83,7 +83,7 @@
 
 	
 	private String write_previous_link_jsp(HttpServletRequest request) {
-		BSPaging paging = (BSPaging) request.getAttribute("Paging");
+		BSPaging paging = (BSPaging) request.getSession(false).getAttribute("Paging");
 		String cssClass = "";
 		Integer currentPage = paging.getCurrentPage();
 
@@ -94,7 +94,7 @@
 	}
 
 	private String write_next_link_jsp(HttpServletRequest request) {
-		BSPaging paging = (BSPaging) request.getAttribute("Paging");
+		BSPaging paging = (BSPaging) request.getSession(false).getAttribute("Paging");
 		String cssClass = "";
 		Integer currentPage = paging.getCurrentPage();
 
@@ -106,7 +106,7 @@
 	}
 
 	private String write_link_jsp(HttpServletRequest request, Integer page, BSPaging paging, String cssClass, String label) {
-		String ctxPath = request.getContextPath();
+		String ctxPath = ""; //request.getContextPath();
 		BSTableConfig table = (BSTableConfig) request.getSession(false).getAttribute("BSTable");
 		String uri = table.getUri();
 		String search = paging.getSearchValue(request);
