@@ -89,7 +89,7 @@
 		</div>
 
 		<div class="alert alert-info col-sm-4 col-md-offset-2" role="alert" >
-			Retrazados: <b id="OverdueLabel"><img 
+			Atrasos: <b id="OverdueLabel"><img 
 				src="${applicationScope['STATIC_CONTEXT']}<%=loadingIcon%>" /></b>
 		</div>
 	</div>
