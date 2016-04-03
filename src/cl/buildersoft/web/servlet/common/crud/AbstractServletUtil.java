@@ -143,7 +143,7 @@ public class AbstractServletUtil extends BSHttpServlet_ {
 		String[] out = new String[fields.length];
 		Integer i = 0;
 		for (BSField f : fields) {
-			out[i++] = f.getValue().toString();
+			out[i++] = (f == null || f.getValue()==null? "''" : f.getValue().toString());
 		}
 		return out;
 	}
