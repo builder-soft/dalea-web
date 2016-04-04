@@ -20,6 +20,9 @@ function closeTooltip() {
 }
 
 function showTooltip(divPatients) {
+//	alert('showTooltip is not enabled');
+	window.status = 'Method showTooltip() will be deleted, not valid for bootsrap application';
+	
 	document.getElementById('TOOLTIP_CELL_CONTAINER').innerHTML = document.getElementById(divPatients).innerHTML;
 	var tooltipContainer = document.getElementById('TOOLTIP_CONTAINER');
 	var tooltipContent = document.getElementById('TOOLTIP_CONTENT');

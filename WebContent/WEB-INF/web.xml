@@ -28,7 +28,16 @@
 		<url-pattern>/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
-<!-- 
+	<filter>
+		<filter-name>LoadApplicationValuesFilter</filter-name>
+		<filter-class>cl.buildersoft.framework.web.filter.LoadApplicationValuesFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoadApplicationValuesFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+<!--  
 	<filter>
 		<filter-name>UserExistsFilter</filter-name>
 		<filter-class>cl.buildersoft.framework.web.filter.UserExistsFilter</filter-class>

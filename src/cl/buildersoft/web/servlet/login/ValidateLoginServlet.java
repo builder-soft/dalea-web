@@ -42,8 +42,8 @@ import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
 
 @WebServlet(urlPatterns = "/login/ValidateLoginServlet")
 public class ValidateLoginServlet extends BSHttpServlet_ {
-	private static final String NOT_FOUND_JSP = "/WEB-INF/jsp/common/not-found.jsp";
 	private static final Logger LOG = Logger.getLogger(ValidateLoginServlet.class.getName());
+	private static final String NOT_FOUND_JSP = "/WEB-INF/jsp/common/not-found.jsp";
 	private static final long serialVersionUID = 3161065592126995826L;
 
 	public ValidateLoginServlet() {
@@ -83,7 +83,7 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 				for (Domain domain : domains) {
 					connTemp = cf.getConnection(domain.getDatabase());
 					eventLog.writeEntry(connTemp, userService.getAnonymousUser().getId(), "SECURITY_LOGIN_FAIL",
-							"Alguien intentó acceder con el usuario \"%s\", inexistente.", mail);
+							"Alguien intentï¿½ acceder con el usuario \"%s\", inexistente.", mail);
 					cf.closeConnection(connTemp);
 				}
 			} else {
