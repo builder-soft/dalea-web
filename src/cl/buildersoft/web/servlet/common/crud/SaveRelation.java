@@ -62,6 +62,7 @@ public class SaveRelation extends BSHttpServlet_ {
 			cf.closeConnection(conn);
 		}
 		String uri = table.getUri();
+		uri="/servlet/system/user/UserManager";
 		forward(request, response, uri);
 		// request.getRequestDispatcher(uri).forward(request, response);
 
