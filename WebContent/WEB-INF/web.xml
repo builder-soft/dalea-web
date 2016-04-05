@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
 	<display-name>dalea-web</display-name>
 	<context-param>
 		<param-name>CurrentContext</param-name>
@@ -18,26 +20,6 @@
 	</servlet>
 
 
-	<!-- -->
-	<filter>
-		<filter-name>SessionFilter</filter-name>
-		<filter-class>cl.buildersoft.framework.web.filter.SessionFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>SessionFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-	</filter-mapping>
-	<filter>
-		<filter-name>LoadApplicationValuesFilter</filter-name>
-		<filter-class>cl.buildersoft.framework.web.filter.LoadApplicationValuesFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>LoadApplicationValuesFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-	</filter-mapping>
-<!--  
 	<filter>
 		<filter-name>UserExistsFilter</filter-name>
 		<filter-class>cl.buildersoft.framework.web.filter.UserExistsFilter</filter-class>
@@ -48,23 +30,27 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
- -->
- 
 
-
-
-
-<!-- 
+	<!-- -->
 	<filter>
-		<filter-name>LV</filter-name>
-		<filter-class>cl.buildersoft.framework.web.filter.LicenseValidationFilter</filter-class>
+		<filter-name>SessionFilter</filter-name>
+		<filter-class>cl.buildersoft.framework.web.filter.SessionFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>LV</filter-name>
-		<url-pattern>/servlet/*</url-pattern>
+		<filter-name>SessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
-	-->
+
+
+
+
+
+
+
+	<!-- <filter> <filter-name>LV</filter-name> <filter-class>cl.buildersoft.framework.web.filter.LicenseValidationFilter</filter-class> 
+		</filter> <filter-mapping> <filter-name>LV</filter-name> <url-pattern>/servlet/*</url-pattern> 
+		<dispatcher>REQUEST</dispatcher> </filter-mapping> -->
 	<filter>
 		<filter-name>EncodingFilter</filter-name>
 		<filter-class>cl.buildersoft.framework.web.filter.EncodingFilter</filter-class>
@@ -86,6 +72,15 @@
 		<filter-name>NoCacheFilter</filter-name>
 		<url-pattern>/servlet/*</url-pattern>
 		<url-pattern>/jsp/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	<filter>
+		<filter-name>LoadApplicationValuesFilter</filter-name>
+		<filter-class>cl.buildersoft.framework.web.filter.LoadApplicationValuesFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoadApplicationValuesFilter</filter-name>
+		<url-pattern>/servlet/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 	<!-- -->
