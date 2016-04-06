@@ -43,7 +43,8 @@ function go(){
 <%!private String _return_path_context(HttpServletRequest request) {
 		BSTableConfig table = (BSTableConfig) request.getSession(false)
 				.getAttribute("BSTable");
-		String out = table.getUri();
+		String context = request.getServletContext().getAttribute(table.getContext()).toString();
+		String out = context + table.getUri();
 //		String ctxPath = request.getContextPath();
 //		String out = ctxPath + uri;
 //		String out = "ctx:"+ctxPath + " uri:"+uri;

@@ -173,18 +173,18 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 
 		Calendar d1 = BSDateTimeUtil.date2Calendar(user.getLastChangePass());
 
-		LOG.log(Level.FINEST, "User: {0} - LastChangePass: {1}",
+		LOG.log(Level.FINE, "User: {0} - LastChangePass: {1}",
 				BSUtils.array2ObjectArray(user.getMail(), BSDateTimeUtil.calendar2String(d1, "yyyy-MM-dd hh:mm:ss")));
 
 		Integer passChangeDays = config.getInteger(conn, "PASS_CHANGE_DAYS", 90);
-		LOG.log(Level.FINEST, "PassChangeDays: {0}  ", passChangeDays);
+		LOG.log(Level.FINE, "PassChangeDays: {0}  ", passChangeDays);
 
 		Long daysDiff = BSDateTimeUtil.dateDiff(d1, Calendar.getInstance());
-		LOG.log(Level.FINEST, "Days diff {0}, for {1}", BSUtils.array2ObjectArray(daysDiff, user.getMail()));
+		LOG.log(Level.FINE, "Days diff {0}, for {1}", BSUtils.array2ObjectArray(daysDiff, user.getMail()));
 
 		Boolean out = daysDiff > passChangeDays;
 
-		LOG.log(Level.FINEST, "Out is: {0}", out);
+		LOG.log(Level.FINE, "Out is: {0}", out);
 
 		return out;
 	}

@@ -1,3 +1,4 @@
+<%@page import="java.util.Enumeration"%>
 <%@page import="cl.buildersoft.framework.util.crud.BSTableConfig"%>
 <%@page import="cl.buildersoft.framework.util.crud.BSPaging"%>
 <%
@@ -106,9 +107,25 @@
 	}
 
 	private String write_link_jsp(HttpServletRequest request, Integer page, BSPaging paging, String cssClass, String label) {
-		String ctxPath = ""; //request.getContextPath();
+		String ctxPath = request.getServletContext().getAttribute(request.getServletContext().getAttribute("CurrentContext").toString()).toString();
+
+/*		Enumeration<String> e = request.getServletContext().getAttributeNames();
+System.out.println("-----------------------------------");
+		while(e.hasMoreElements()){
+
+		System.out.println(e.nextElement());
+		String param = (String) e.nextElement();
+		}*/
+		
+		
+		
+//		System.out.println(request.getServletContext().getAttributeNames().toString());
+//		System.out.println(ctxPath);
+		
+//		String ctxPath = ""; //request.getContextPath();
 		BSTableConfig table = (BSTableConfig) request.getSession(false).getAttribute("BSTable");
 		String uri = table.getUri();
+		ctxPath = request.getServletContext().getAttribute(table.getContext()).toString();
 		String search = paging.getSearchValue(request);
 		uri = linkToPage2(ctxPath, page, uri, search);
 
