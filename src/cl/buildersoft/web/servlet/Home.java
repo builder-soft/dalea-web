@@ -35,7 +35,7 @@ public class Home extends BSHttpServlet_ {
 //			request.setAttribute("LastRead", lastRead);
 		}
 		closeConnection(conn);
-		forward(request, response, page);
+		forward(request, response, page, true);
 	}
 
 	private void loadDateFormat(HttpServletRequest request) {

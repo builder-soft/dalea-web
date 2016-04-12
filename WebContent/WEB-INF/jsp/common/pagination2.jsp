@@ -125,6 +125,7 @@ System.out.println("-----------------------------------");
 //		String ctxPath = ""; //request.getContextPath();
 		BSTableConfig table = (BSTableConfig) request.getSession(false).getAttribute("BSTable");
 		String uri = table.getUri();
+//		ctxPath = request.getServletContext().getAttribute("DALEA_CONTEXT").toString();
 		ctxPath = request.getServletContext().getAttribute(table.getContext()).toString();
 		String search = paging.getSearchValue(request);
 		uri = linkToPage2(ctxPath, page, uri, search);

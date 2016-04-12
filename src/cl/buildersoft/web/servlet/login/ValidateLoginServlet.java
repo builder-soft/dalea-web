@@ -83,7 +83,7 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 				for (Domain domain : domains) {
 					connTemp = cf.getConnection(domain.getDatabase());
 					eventLog.writeEntry(connTemp, userService.getAnonymousUser().getId(), "SECURITY_LOGIN_FAIL",
-							"Alguien intent� acceder con el usuario \"%s\", inexistente.", mail);
+							"Alguien intentó acceder con el usuario \"%s\", inexistente.", mail);
 					cf.closeConnection(connTemp);
 				}
 			} else {
