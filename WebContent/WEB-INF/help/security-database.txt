@@ -1,0 +1,7 @@
+
+
+http://dev.mysql.com/doc/refman/5.7/en/password-security-user.html
+http://stackoverflow.com/questions/2144218/how-can-i-hide-a-password-username-used-in-a-bash-script-for-accessing-mysql
+
+
+http://stackoverflow.com/questions/4292769/what-is-the-location-of-mysql-client-my-cnf-in-xampp-for-windows
