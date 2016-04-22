@@ -22,7 +22,7 @@ public class PostManager extends BSHttpServletCRUD {
 		table.getField("cKey").setLabel("Llave");
 		table.getField("cName").setLabel("Descripción");
 
-		configEventLog(table, getCurrentUser(request).getId());
+//		configEventLog(table, getCurrentUser(request).getId());
 		
 		return table;
 	}
