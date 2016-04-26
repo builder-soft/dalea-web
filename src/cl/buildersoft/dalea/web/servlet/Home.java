@@ -1,4 +1,4 @@
-package cl.buildersoft.web.servlet;
+package cl.buildersoft.dalea.web.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
