@@ -14,7 +14,7 @@
 	<servlet>
 		<servlet-name>StartupServlet</servlet-name>
 		<servlet-class>cl.buildersoft.framework.web.servlet.StartupServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
+		<load-on-startup>2</load-on-startup>
 	</servlet>
 
 	<!-- FILTROS -->
