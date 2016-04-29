@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cl.buildersoft.framework.beans.User;
 import cl.buildersoft.framework.database.BSBeanUtils;
+import cl.buildersoft.framework.util.BSConfig;
 import cl.buildersoft.framework.util.BSConnectionFactory;
 import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
 
@@ -28,7 +29,6 @@ public class SearchPassword extends BSHttpServlet_ {
 
 		String idString = request.getParameter("cId");
 		Boolean reset = request.getParameter("Reset") != null;
-	 
 
 		if (idString == null) {
 			User user = (User) request.getSession(false).getAttribute("User");
@@ -48,6 +48,7 @@ public class SearchPassword extends BSHttpServlet_ {
 		bu.search(conn, user);
 
 		request.setAttribute("PASS_IS_NULL", user.getPassword() == null || reset);
+		setPasswordConditions(connDomain, request);
 
 		String page = null;
 		if (bootstrap(connDomain)) {
@@ -58,6 +59,20 @@ public class SearchPassword extends BSHttpServlet_ {
 		cf.closeConnection(conn);
 		cf.closeConnection(connDomain);
 		forward(request, response, page);
+	}
+
+	private void setPasswordConditions(Connection conn, HttpServletRequest request) {
+		BSConfig c = new BSConfig();
+		Integer minLen = c.getInteger(conn, "PASS_MIN_LEN");
+		Integer specialChars = c.getInteger(conn, "PASS_SPEC_CHR");
+		Integer upperChars = c.getInteger(conn, "PASS_UPPER_CHR");
+		Integer numChars = c.getInteger(conn, "PASS_NUM_CHR");
+		
+		request.setAttribute("PASS_MIN_LEN", minLen);
+		request.setAttribute("PASS_SPEC_CHR", specialChars);
+		request.setAttribute("PASS_UPPER_CHR", upperChars);
+		request.setAttribute("PASS_NUM_CHR", numChars);
+
 	}
 
 	private Connection getDomainConnection(HttpServletRequest request) {
