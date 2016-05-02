@@ -28,83 +28,76 @@
 <div class="page-header">
 	<h1>
 		Cambio de clave
-		<%=passwordIsNull%></h1>
+		</h1>
 </div>
 
 <div class="row">
-<form action="${applicationScope['DALEA_CONTEXT']}<%=nextAction%>"
-	method="post" class="form-horizontal" role="form">
-	<input type="hidden" name="cId" value="<%=id%>"> <input
-		type="hidden" name="Reset" value="<%=passwordIsNull%>">
+	<form action="${applicationScope['DALEA_CONTEXT']}<%=nextAction%>"
+		method="post" class="form-horizontal" role="form">
+		<input type="hidden" name="cId" value="<%=id%>"> <input
+			type="hidden" name="Reset" value="<%=passwordIsNull%>">
 
-	<%
-		if (!passwordIsNull) {
-	%>
+		<%
+			if (!passwordIsNull) {
+		%>
 
-	<div class="form-group">
-		<label class="control-label col-sm-2" for="OldPassword">Clave
-			anterior: </label>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="OldPassword">Clave
+				anterior: </label>
 
-		<div class="col-sm-10">
-			<input type="password" name="OldPassword" id="OldPassword"
-				class="form-control" autocomplete="off">
+			<div class="col-sm-10">
+				<input type="password" name="OldPassword" id="OldPassword"
+					class="form-control" autocomplete="off">
+			</div>
 		</div>
-	</div>
-	<%
-		}
-	%>
-	<div class="form-group">
-		<label class="control-label col-sm-2" for="NewPassword">Nueva
-			clave:</label>
-		<div class="col-sm-10">
-			<input type="password" name="NewPassword" id="NewPassword"
-				class="form-control" autocomplete="off">
+		<%
+			}
+		%>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="NewPassword">Nueva
+				clave:</label>
+			<div class="col-sm-10">
+				<input type="password" name="NewPassword" id="NewPassword"
+					class="form-control" autocomplete="off">
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<label class="control-label col-sm-2" for="CommitPassword">Confirme
-			clave:</label>
-		<div class="col-sm-10">
-			<input type="password" name="CommitPassword" id="CommitPassword"
-				class="form-control" autocomplete="off">
-			</td>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="CommitPassword">Confirme
+				clave:</label>
+			<div class="col-sm-10">
+				<input type="password" name="CommitPassword" id="CommitPassword"
+					class="form-control" autocomplete="off">
+				</td>
+			</div>
 		</div>
-	</div>
 
-	<button type="submit" class="btn btn-primary">Confirmar</button>
-	<a class="btn btn-link"
-		href="${applicationScope['DALEA_CONTEXT']}<%=cancelAction%>">Cancelar</a>
+		<button type="submit" class="btn btn-primary">Confirmar</button>
+		<a class="btn btn-link"
+			href="${applicationScope['DALEA_CONTEXT']}<%=cancelAction%>">Cancelar</a>
 
-</form>
+	</form>
 </div>
 <br>
 <div class="row well">
-	<div class="col-sm-11 col-sm-offset-1 ">
-	Considere las siguientes condiciones para definir la clave de acceso:
-	</div>
-	
-	
-	<!-- 
-	<div class="col-sm-10 col-sm-offset-2">
-	Largo mínimo:	<%=minLen %>
-	</div>
-	<div class="col-sm-10 col-sm-offset-2">
-	Caracteres especiales:	<%=specialChars %>
-	</div>
-	<div class="col-sm-10 col-sm-offset-2">
-	Letras mayusculas:	<%=upperChars %>
-	</div>
-	<div class="col-sm-10 col-sm-offset-2">
-	Números:	<%=numChars %>
-	</div>
- -->
+	<div class="col-sm-11 col-sm-offset-1 ">Considere las siguientes
+		condiciones para definir la clave de acceso:</div>
 
+	<div class="row col-sm-3 col-sm-offset-1">
+		<ul class="list-group">
+
+			<li class="list-group-item"><span class="badge"><%=minLen%></span>
+				Largo mínimo</li>
+			<li class="list-group-item"><span class="badge"><%=specialChars%></span>
+				Caracteres especiales</li>
+			<li class="list-group-item"><span class="badge"><%=upperChars%></span>
+				Letras mayusculas</li>
+			<li class="list-group-item"><span class="badge"><%=numChars%></span>
+				Números</li>
+
+		</ul>
+	</div>
 </div>
-	<ul class="list-group">
-	<li class="list-group-item">
-	Largo mínimo:<%=minLen %></li></ul>
-
 
 <%@ include file="/WEB-INF/jsp/common/footer2.jsp"%>
 
