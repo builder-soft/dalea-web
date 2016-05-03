@@ -37,4 +37,4 @@ INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('TIMECTRL_CONTEXT', '/timec
 INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('STATIC_CONTEXT', 'http://www.buildersoft.cl/dalea');
 
 
-ALTER TABLE tSessionData MODIFY cData MEDIUMTEXT;
+ALTER TABLE bsframework.tSessionData MODIFY cData MEDIUMTEXT;
