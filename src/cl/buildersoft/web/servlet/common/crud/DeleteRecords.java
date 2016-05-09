@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import cl.buildersoft.framework.database.BSmySQL;
+import cl.buildersoft.framework.exception.BSConfigurationException;
 import cl.buildersoft.framework.util.BSUtils;
 import cl.buildersoft.framework.util.crud.BSTableConfig;
 
@@ -62,7 +63,7 @@ public class DeleteRecords extends AbstractServletUtil {
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, e.getMessage(), e);
-
+			throw new BSConfigurationException(e);
 		} finally {
 			closeConnection(conn);
 		}

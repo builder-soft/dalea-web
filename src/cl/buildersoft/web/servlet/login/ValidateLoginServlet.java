@@ -114,9 +114,10 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 							throw new BSUserException("El usuario '" + user.getMail() + "' no tiene dominios configurados");
 						}
 						defaultDomain = domains.get(0);
+						domainAttribute = getDomainAttribute(connBSframework, defaultDomain);
 
 						connDomain = cf.getConnection(defaultDomain.getDatabase());
-
+						
 						rols = userService.getRols(connDomain, user);
 						if (rols.size() == 0) {
 							String msg = "Usuario no tiene roles configurados";

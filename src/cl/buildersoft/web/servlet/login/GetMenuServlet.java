@@ -3,6 +3,7 @@ package cl.buildersoft.web.servlet.login;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import cl.buildersoft.framework.beans.DomainAttribute;
 import cl.buildersoft.framework.beans.Menu;
 import cl.buildersoft.framework.beans.Rol;
 import cl.buildersoft.framework.services.BSMenuService;
@@ -40,7 +42,8 @@ public class GetMenuServlet extends BSHttpServlet_ {
 
 			BSMenuService menuService = new BSMenuServiceImpl();
 
-			Menu menu = menuService.getMenu(conn, getCurrentUser(request).getAdmin(), rols, 1L);
+			Menu menu = menuService.getMenu(conn, (Map<String, DomainAttribute>) session.getAttribute("DomainAttribute"),
+					getCurrentUser(request).getAdmin(), rols, 1L);
 			synchronized (session) {
 				session.setAttribute("Menu", menu);
 			}
@@ -49,7 +52,7 @@ public class GetMenuServlet extends BSHttpServlet_ {
 		}
 		String page = nextServlet != null ? nextServlet : "/servlet/Home";
 		forward(request, response, page, false);
-		 
+
 	}
 
 }

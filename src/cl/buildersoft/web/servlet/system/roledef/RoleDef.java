@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,7 +13,9 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import cl.buildersoft.framework.beans.DomainAttribute;
 import cl.buildersoft.framework.beans.Menu;
 import cl.buildersoft.framework.beans.Rol;
 import cl.buildersoft.framework.database.BSBeanUtils;
@@ -36,6 +39,7 @@ public class RoleDef extends BSHttpServlet_ {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BSmySQL mysql = new BSmySQL();
 		Connection conn = getConnection(request);
+		HttpSession session = request.getSession(false);
 
 		String sql = "SELECT cId, cName FROM tRol";
 		ResultSet rolsResultSet = mysql.queryResultSet(conn, sql, null);
@@ -46,12 +50,13 @@ public class RoleDef extends BSHttpServlet_ {
 
 		BSMenuService menuService = new BSMenuServiceImpl();
 
-		Menu fullMenu = menuService.getMenu(conn, getCurrentUser(request).getAdmin(), null);
-		Menu rolMenu = menuService.getMenu(conn, getCurrentUser(request).getAdmin(), rols);
+		Menu fullMenu = menuService.getMenu(conn, (Map<String, DomainAttribute>) session.getAttribute("DomainAttribute"),
+				getCurrentUser(request).getAdmin(), null);
+		Menu rolMenu = menuService.getMenu(conn, (Map<String, DomainAttribute>) session.getAttribute("DomainAttribute"),
+				getCurrentUser(request).getAdmin(), rols);
 		mysql.closeConnection(conn);
 
 		LOG.log(Level.FINE, "RolMenu: {0}", rolMenu.list().toString());
-		 
 
 		request.setAttribute("Rols", rolsArray);
 		request.setAttribute("FullMenu", fullMenu);
@@ -59,7 +64,8 @@ public class RoleDef extends BSHttpServlet_ {
 		request.setAttribute("cId", idRolLong);
 
 		forward(request, response, "/WEB-INF/jsp/system/role-def/role-def.jsp");
-//		request.getRequestDispatcher("/WEB-INF/jsp/system/role-def/role-def.jsp").forward(request, response);
+		// request.getRequestDispatcher("/WEB-INF/jsp/system/role-def/role-def.jsp").forward(request,
+		// response);
 
 	}
 
