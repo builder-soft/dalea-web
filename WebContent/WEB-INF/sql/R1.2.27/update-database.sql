@@ -14,7 +14,6 @@ create table bsframework.tSessionData (
 	cData		TEXT
 ) ENGINE=innoDB;
 
-
 ALTER TABLE bsframework.tSessionData
 ADD INDEX Index_Session (cSession ASC),
 ADD CONSTRAINT SessionData_To_Session FOREIGN KEY (cSession) REFERENCES tSession(cId);
@@ -34,7 +33,10 @@ CREATE TABLE bsframework.tConfig (
 
 INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('DALEA_CONTEXT', '/dalea-web');
 INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('TIMECTRL_CONTEXT', '/timectrl-web');
-INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('STATIC_CONTEXT', 'http://www.buildersoft.cl/dalea');
+INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('STATIC_CONTEXT', '/dalea');
 
 
 ALTER TABLE bsframework.tSessionData MODIFY cData MEDIUMTEXT;
+
+UPDATE tVersion SET cVersion='1.2.27', cUpdated=NOW() WHERE cKey = 'DBT';
+
