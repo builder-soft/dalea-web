@@ -23,7 +23,7 @@ ALTER TABLE bsframework.tsession CHANGE cSessionId cToken varchar(50) NOT NULL;
 
 ALTER TABLE bsframework.tSession ADD INDEX Index_Token (cToken ASC);
 
-CREATE TABLE bsframework.tConfig (
+CREATE TABLE if not exists bsframework.tConfig (
   cId bigint(20) NOT NULL AUTO_INCREMENT,
   cKey varchar(20) NOT NULL UNIQUE,
   cValue varchar(300) NOT NULL,
@@ -31,12 +31,26 @@ CREATE TABLE bsframework.tConfig (
   UNIQUE KEY cId (cId)
 ) ENGINE=InnoDB;
 
-INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('DALEA_CONTEXT', '/dalea-web');
-INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('TIMECTRL_CONTEXT', '/timectrl-web');
-INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('STATIC_CONTEXT', '/dalea');
+DELIMITER $$
+create procedure pUpdateData_Temp()
+begin
+	IF(NOT EXISTS(SELECT cId FROM bsframework.tConfig WHERE cKey = 'DALEA_CONTEXT')) THEN
+		INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('DALEA_CONTEXT', '/dalea-web');
+	END IF;
 
+	IF(NOT EXISTS(SELECT cId FROM bsframework.tConfig WHERE cKey = 'TIMECTRL_CONTEXT')) THEN
+		INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('TIMECTRL_CONTEXT', '/timectrl-web');
+	END IF;
+	IF(NOT EXISTS(SELECT cId FROM bsframework.tConfig WHERE cKey = 'STATIC_CONTEXT')) THEN
+		INSERT INTO bsframework.tConfig(cKey, cValue) VALUES('STATIC_CONTEXT', '/dalea');
+	END IF;
+	
+END$$
+DELIMITER ;
+
+call pUpdateData_Temp;
+drop procedure if exists pUpdateData_Temp;
 
 ALTER TABLE bsframework.tSessionData MODIFY cData MEDIUMTEXT;
-
 UPDATE tVersion SET cVersion='1.2.27', cUpdated=NOW() WHERE cKey = 'DBT';
 
