@@ -6,6 +6,10 @@
 		<param-name>CurrentContext</param-name>
 		<param-value>DALEA_CONTEXT</param-value>
 	</context-param>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/servlet/common/NotFoundServlet</location>
+	</error-page>
 
 	<welcome-file-list>
 		<welcome-file>jsp/login/login2.jsp</welcome-file>
