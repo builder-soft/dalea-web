@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import cl.buildersoft.framework.beans.Domain;
 import cl.buildersoft.framework.beans.LogInfoBean;
 import cl.buildersoft.framework.beans.User;
@@ -18,6 +21,7 @@ import cl.buildersoft.framework.util.crud.BSTableConfig;
 
 @WebServlet("/servlet/system/user/UserManager")
 public class UserManager extends BSHttpServletCRUD {
+	private final static Logger LOG = LogManager.getLogger(UserManager.class.getName());
 	private static final long serialVersionUID = -3497399350893131897L;
 
 	@Override
@@ -93,31 +97,6 @@ public class UserManager extends BSHttpServletCRUD {
 		return null;
 	}
 
-	/**<code>
-	@Override
-	public void writeEventLog(Connection conn, String action, HttpServletRequest request, BSTableConfig table) {
-		EventLogService event = ServiceFactory.createEventLogService();
-
-		if ("INSERT".equals(action)) {
-			event.writeEntry(conn, getCurrentUser(request).getId(), "NEW_USER", "Crea un nuevo usuario %s, mail %s", table
-					.getField("cName").getValue(), table.getField("cMail").getValue());
-
-		}
-		if ("DELETE".equals(action)) {
-			event.writeEntry(conn, getCurrentUser(request).getId(), "DELETE_USER",
-					"Borra usuario %s, su Id fué %s\n mail %s\n y perfil %s", table.getField("cName").getValue(),
-					table.getField("cId").getValue(), table.getField("cMail").getValue(),
-					Boolean.parseBoolean(table.getField("cAdmin").getValue().toString()) ? "Administrador" : "Usuario");
-		}
-		if ("UPDATE".equals(action)) {
-			event.writeEntry(conn, getCurrentUser(request).getId(), "UPDATE_USER",
-					"Actualiza usuario, sus datos eran:\n- Id: %s.\n- Nombre: %s\n- Mail: %s\n- Perfil administrador: %s", table
-							.getField("cId").getValue(), table.getField("cName").getValue(), table.getField("cMail").getValue(),
-					Boolean.parseBoolean(table.getField("cAdmin").getValue().toString()) ? "Si" : "No");
-		}
-	}
-</code>*/
-	
 	@Override
 	protected void configEventLog(BSTableConfig table, Long userId) {
 		LogInfoBean li = new LogInfoBean();
@@ -140,6 +119,18 @@ public class UserManager extends BSHttpServletCRUD {
 		li.setMessage("Actualiza usuario");
 		li.setUserId(userId);
 		table.addLogInfo(li);
+
+	}
+
+	@Override
+	protected void preExecuteAction(BSTableConfig table, String action, Long userId) {
+		LOG.entry(table, action, userId);
+
+	}
+
+	@Override
+	protected void postExecuteAction(BSTableConfig table, String action, Long userId) {
+		LOG.entry(table, action, userId);
 
 	}
 }

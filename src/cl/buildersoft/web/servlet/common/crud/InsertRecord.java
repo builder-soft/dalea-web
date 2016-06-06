@@ -16,9 +16,11 @@ import javax.servlet.http.HttpSession;
 import cl.buildersoft.framework.database.BSmySQL;
 import cl.buildersoft.framework.exception.BSDataBaseException;
 import cl.buildersoft.framework.util.BSConnectionFactory;
+import cl.buildersoft.framework.util.BSFactory;
 import cl.buildersoft.framework.util.BSUtils;
 import cl.buildersoft.framework.util.BSWeb;
 import cl.buildersoft.framework.util.crud.BSField;
+import cl.buildersoft.framework.util.crud.BSHttpServletCRUD;
 import cl.buildersoft.framework.util.crud.BSTableConfig;
 
 @WebServlet("/servlet/common/InsertRecord")
@@ -73,6 +75,11 @@ public class InsertRecord extends AbstractServletUtil {
 
 			// writeEventLog(conn, businessClass, request, table);
 			writeEventLog(conn, table, "INSERT", getCurrentUser(request).getId());
+			
+//			BSFactory f = new BSFactory();
+//			BSHttpServletCRUD crud = (BSHttpServletCRUD)	f.getInstance(businessClass);
+//			crud.postExecuteAction(null, null, null);
+
 
 		} finally {
 			cf.closeConnection(conn);

@@ -23,7 +23,7 @@ public class FiscalDateManager extends BSHttpServletCRUD {
 
 		table.setSortField("cDate");
 		configEventLog(table, getCurrentUser(request).getId());
-		
+
 		return table;
 	}
 
@@ -32,10 +32,21 @@ public class FiscalDateManager extends BSHttpServletCRUD {
 		return null;
 	}
 
-	 
 	@Override
 	protected void configEventLog(BSTableConfig table, Long userId) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	protected void preExecuteAction(BSTableConfig table, String action, Long userId) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void postExecuteAction(BSTableConfig table, String action, Long userId) {
+		// TODO Auto-generated method stub
+
 	}
 }

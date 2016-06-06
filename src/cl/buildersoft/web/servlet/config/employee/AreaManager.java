@@ -38,4 +38,16 @@ public class AreaManager extends BSHttpServletCRUD {
 	protected void configEventLog(BSTableConfig table, Long userId) {
 
 	}
+
+	@Override
+	protected void preExecuteAction(BSTableConfig table, String action, Long userId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void postExecuteAction(BSTableConfig table, String action, Long userId) {
+		// TODO Auto-generated method stub
+		
+	}
 }
