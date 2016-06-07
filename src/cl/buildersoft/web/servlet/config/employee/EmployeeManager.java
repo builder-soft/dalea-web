@@ -50,7 +50,8 @@ public class EmployeeManager extends BSHttpServletCRUD {
 		table.getField("cUsername").setLabel("Usuario");
 		table.getField("cMail").setLabel("Correo electrónico");
 
-		this.hideFields(table, "cMail", "cArea", "cPrivilege", "cBirthDate", "cAddress", "cComuna", "cCountry", "cGenere", "cPhone", "cMaritalStatus");
+		this.hideFields(table, "cMail", "cArea", "cPrivilege", "cBirthDate", "cAddress", "cComuna", "cCountry", "cGenere",
+				"cPhone", "cMaritalStatus");
 		table.removeField("cEnabled");
 
 		table.setDeleteSP("pDeleteEmployee");
@@ -233,15 +234,15 @@ public class EmployeeManager extends BSHttpServletCRUD {
 	}
 
 	@Override
-	protected void preExecuteAction(BSTableConfig table, String action, Long userId) {
+	public void preExecuteAction(BSTableConfig table, String action, Long userId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	protected void postExecuteAction(BSTableConfig table, String action, Long userId) {
+	public void postExecuteAction(BSTableConfig table, String action, Long userId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import cl.buildersoft.framework.database.BSmySQL;
 import cl.buildersoft.framework.exception.BSDataBaseException;
-import cl.buildersoft.framework.type.Semaphore;
 import cl.buildersoft.framework.util.BSConnectionFactory;
 import cl.buildersoft.framework.util.BSFactory;
 import cl.buildersoft.framework.util.BSUtils;
@@ -77,12 +76,17 @@ public class InsertRecord extends AbstractServletUtil {
 			// writeEventLog(conn, businessClass, request, table);
 			writeEventLog(conn, table, "INSERT", getCurrentUser(request).getId());
 
-			
-			
-//			BSFactory f = new BSFactory();
-//			BSHttpServletCRUD crud = (BSHttpServletCRUD)	f.getInstance(businessClass);
-//			crud.postExecuteAction(null, null, null);
+			Object servletObject = session.getAttribute("ServletManager");
+			if (servletObject != null) {
+				BSHttpServletCRUD servletCRUD = (BSHttpServletCRUD) servletObject;
+				servletCRUD.postExecuteAction(table, "INSERT", getCurrentUser(request).getId());
+			}
 
+			// BSFactory f = new BSFactory();
+			// BSHttpServletCRUD crud = (BSHttpServletCRUD)
+			// f.getInstance(businessClass);
+			// crud.postExecuteAction(table, "INSERT",
+			// getCurrentUser(request).getId());
 
 		} finally {
 			cf.closeConnection(conn);
@@ -113,32 +117,4 @@ public class InsertRecord extends AbstractServletUtil {
 		return out;
 	}
 
-}
-class TempClass extends BSHttpServletCRUD{
-	private static final long serialVersionUID = 56904704248694137L;
-
-	@Override
-	protected void configEventLog(BSTableConfig arg0, Long arg1) {
-	}
-
-	@Override
-	protected BSTableConfig getBSTableConfig(HttpServletRequest arg0) {
-		return null;
-	}
-
-	@Override
-	protected void postExecuteAction(BSTableConfig arg0, String arg1, Long arg2) {
-		
-	}
-
-	@Override
-	protected void preExecuteAction(BSTableConfig arg0, String arg1, Long arg2) {
-		
-	}
-
-	@Override
-	public Semaphore setSemaphore(Connection arg0, Object[] arg1) {
-		return null;
-	}
-	
 }

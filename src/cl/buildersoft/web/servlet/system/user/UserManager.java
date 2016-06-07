@@ -31,7 +31,7 @@ public class UserManager extends BSHttpServletCRUD {
 		Boolean isAdmin = null;
 		User user = null;
 		Domain domain = null;
-		BSTableConfig table = null;
+		BSTableConfig table = initTable(request, "bsframework", "tUser", this);
 		synchronized (session) {
 			user = (User) session.getAttribute("User");
 			domain = (Domain) session.getAttribute("Domain");
@@ -123,13 +123,15 @@ public class UserManager extends BSHttpServletCRUD {
 	}
 
 	@Override
-	protected void preExecuteAction(BSTableConfig table, String action, Long userId) {
+	public void preExecuteAction(BSTableConfig table, String action, Long userId) {
+		System.out.println("HERE, pre");
 		LOG.entry(table, action, userId);
 
 	}
 
 	@Override
-	protected void postExecuteAction(BSTableConfig table, String action, Long userId) {
+	public void postExecuteAction(BSTableConfig table, String action, Long userId) {
+		System.out.println("HERE, post");
 		LOG.entry(table, action, userId);
 
 	}

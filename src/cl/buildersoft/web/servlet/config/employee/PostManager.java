@@ -22,8 +22,8 @@ public class PostManager extends BSHttpServletCRUD {
 		table.getField("cKey").setLabel("Llave");
 		table.getField("cName").setLabel("Descripción");
 
-//		configEventLog(table, getCurrentUser(request).getId());
-		
+		// configEventLog(table, getCurrentUser(request).getId());
+
 		return table;
 	}
 
@@ -32,8 +32,8 @@ public class PostManager extends BSHttpServletCRUD {
 		return null;
 	}
 
-	 
-/**<code>
+	/**
+	 * <code>
 	@ Override
 	public void writeEventLog(Connection conn, String action, HttpServletRequest request, BSTableConfig table) {
 		EventLogService eventLog = ServiceFactory.createEventLogService();
@@ -52,7 +52,8 @@ public class PostManager extends BSHttpServletCRUD {
 							.getField("cName").getValue());
 		}
 	}
-</code>*/
+</code>
+	 */
 	@Override
 	protected void configEventLog(BSTableConfig table, Long userId) {
 		LogInfoBean li = new LogInfoBean();
@@ -61,32 +62,32 @@ public class PostManager extends BSHttpServletCRUD {
 		li.setMessage("Agrega nuevo cargo");
 		li.setUserId(userId);
 		table.addLogInfo(li);
-		
+
 		li = new LogInfoBean();
 		li.setAction("UPDATE");
 		li.setEventKey("UPDATE_POST");
 		li.setMessage("Actualiza cargo");
 		li.setUserId(userId);
 		table.addLogInfo(li);
-		
+
 		li = new LogInfoBean();
 		li.setAction("DELETE");
 		li.setEventKey("DELETE_POST");
 		li.setMessage("Elimina cargo");
 		li.setUserId(userId);
 		table.addLogInfo(li);
-		
+
 	}
 
-@Override
-protected void preExecuteAction(BSTableConfig table, String action, Long userId) {
-	// TODO Auto-generated method stub
-	
-}
+	@Override
+	public void preExecuteAction(BSTableConfig table, String action, Long userId) {
+		// TODO Auto-generated method stub
 
-@Override
-protected void postExecuteAction(BSTableConfig table, String action, Long userId) {
-	// TODO Auto-generated method stub
-	
-}
+	}
+
+	@Override
+	public void postExecuteAction(BSTableConfig table, String action, Long userId) {
+		// TODO Auto-generated method stub
+
+	}
 }
