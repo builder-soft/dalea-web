@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import cl.buildersoft.framework.database.BSmySQL;
 import cl.buildersoft.framework.exception.BSDataBaseException;
 import cl.buildersoft.framework.util.BSConnectionFactory;
-import cl.buildersoft.framework.util.BSFactory;
 import cl.buildersoft.framework.util.BSUtils;
 import cl.buildersoft.framework.util.BSWeb;
 import cl.buildersoft.framework.util.crud.BSField;
@@ -38,7 +37,7 @@ public class InsertRecord extends AbstractServletUtil {
 			businessClass = (String) session.getAttribute("BusinessClass");
 		}
 
-		String saveSP = table.getSaveSP();
+		String saveSP = table.getInsertSP();
 
 		BSmySQL mysql = new BSmySQL();
 		BSConnectionFactory cf = new BSConnectionFactory();
@@ -57,6 +56,9 @@ public class InsertRecord extends AbstractServletUtil {
 			} else {
 				fields = table.getFields();
 				List<Object> params = getValues4Insert(conn, request, fields);
+				if (table.getInsertExtParam() != null) {
+					appendParams(params, table);
+				}
 				ResultSet rs = mysql.callSingleSP(conn, saveSP, params);
 
 				if (rs != null) {
@@ -93,6 +95,13 @@ public class InsertRecord extends AbstractServletUtil {
 		}
 
 		forward(request, response, "/servlet/common/LoadTable");
+	}
+
+	private void appendParams(List<Object> params, BSTableConfig table) {
+		Object[] newParams = table.getInsertExtParam();
+		for (Object param : newParams) {
+			params.add(param);
+		}
 	}
 
 	private String getSQL(BSTableConfig table, BSField[] fields, HttpServletRequest request) {

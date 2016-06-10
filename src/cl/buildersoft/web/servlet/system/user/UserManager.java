@@ -41,15 +41,18 @@ public class UserManager extends BSHttpServletCRUD {
 		BSField field = null;
 		if (isAdmin) {
 			table = new BSTableConfig("bsframework", "tUser", "vUserAdmin");
-			table.setSaveSP("bsframework.pSaveUserAdmin");
+			table.setInsertSP("bsframework.pSaveUserAdmin");
 		} else {
 			table = new BSTableConfig(domain.getDatabase(), "tUser", "vUser");
-			table.setSaveSP("bsframework.pSaveUser");
+			table.setInsertSP("bsframework.pSaveUser");
+			table.addInsertExtParam(this.getCurrentDomain(request).getId());
 		}
 
 		table.setTitle("Usuarios del sistema");
 		table.setDeleteSP("pDeleteUser");
 
+		
+		
 		field = new BSField("cId", "ID");
 		field.setPK(true);
 		table.addField(field);
