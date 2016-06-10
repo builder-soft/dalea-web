@@ -79,10 +79,7 @@ public class InsertRecord extends AbstractServletUtil {
 			writeEventLog(conn, table, "INSERT", getCurrentUser(request).getId());
 
 			Object servletObject = session.getAttribute("ServletManager");
-			if (servletObject != null) {
-				BSHttpServletCRUD servletCRUD = (BSHttpServletCRUD) servletObject;
-				servletCRUD.postExecuteAction(table, "INSERT", getCurrentUser(request).getId());
-			}
+			
 
 			// BSFactory f = new BSFactory();
 			// BSHttpServletCRUD crud = (BSHttpServletCRUD)

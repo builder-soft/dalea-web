@@ -1,5 +1,6 @@
 package cl.buildersoft.web.servlet.system.user;
 
+import java.io.Serializable;
 import java.sql.Connection;
 
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +21,7 @@ import cl.buildersoft.framework.util.crud.BSHttpServletCRUD;
 import cl.buildersoft.framework.util.crud.BSTableConfig;
 
 @WebServlet("/servlet/system/user/UserManager")
-public class UserManager extends BSHttpServletCRUD {
+public class UserManager extends BSHttpServletCRUD   {
 	private final static Logger LOG = LogManager.getLogger(UserManager.class.getName());
 	private static final long serialVersionUID = -3497399350893131897L;
 
@@ -43,7 +44,8 @@ public class UserManager extends BSHttpServletCRUD {
 			table = new BSTableConfig("bsframework", "tUser", "vUserAdmin");
 			table.setInsertSP("bsframework.pSaveUserAdmin");
 		} else {
-			table = new BSTableConfig(domain.getDatabase(), "tUser", "vUser");
+//			table = new BSTableConfig(domain.getDatabase(), "tUser", "vUser");
+			table = new BSTableConfig("bsframework", "tUser", "vUser");
 			table.setInsertSP("bsframework.pSaveUser");
 			table.addInsertExtParam(this.getCurrentDomain(request).getId());
 		}
@@ -125,17 +127,5 @@ public class UserManager extends BSHttpServletCRUD {
 
 	}
 
-	@Override
-	public void preExecuteAction(BSTableConfig table, String action, Long userId) {
-		System.out.println("HERE, pre");
-		LOG.entry(table, action, userId);
-
-	}
-
-	@Override
-	public void postExecuteAction(BSTableConfig table, String action, Long userId) {
-		System.out.println("HERE, post");
-		LOG.entry(table, action, userId);
-
-	}
+	
 }

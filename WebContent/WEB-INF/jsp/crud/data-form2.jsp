@@ -106,7 +106,7 @@ function onLoadPage(){
 <div class="page-header">
 	<h1 class="">Detalle de información</h1>
 </div>
-<%=("insert".equalsIgnoreCase(nextServlet)  )  + " " + nextServlet%>
+
 <%
 	
 	if ("insert".equalsIgnoreCase(nextServlet)) {
