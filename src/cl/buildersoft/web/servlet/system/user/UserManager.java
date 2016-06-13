@@ -27,6 +27,7 @@ public class UserManager extends BSHttpServletCRUD   {
 
 	@Override
 	protected BSTableConfig getBSTableConfig(HttpServletRequest request) {
+		LOG.entry(request);
 		HttpSession session = request.getSession(false);
 
 		Boolean isAdmin = null;
