@@ -27,7 +27,7 @@ function onLoadPage(){
 				typeHtml = field.getTypeHtml();
 				showThis = field.isReadonly();
 
-				if (type.equals(BSDataTypeEnum.DATE)) {%>
+				if (type.getDataTypeEnum().equals(BSDataTypeEnum.DATE)) {%>
 			$("#<%=fieldName%>").datepicker({dateFormat : fixDateFormat(dateFormat)});
 		<%}
 			}%>
