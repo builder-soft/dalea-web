@@ -9,14 +9,15 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import cl.buildersoft.framework.beans.Domain;
 import cl.buildersoft.framework.beans.DomainAttribute;
@@ -33,7 +34,6 @@ import cl.buildersoft.framework.services.impl.BSUserServiceImpl;
 import cl.buildersoft.framework.util.BSConfig;
 import cl.buildersoft.framework.util.BSConnectionFactory;
 import cl.buildersoft.framework.util.BSDateTimeUtil;
-import cl.buildersoft.framework.util.BSUtils;
 import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
 
 /**
@@ -42,7 +42,7 @@ import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
 
 @WebServlet(urlPatterns = "/login/ValidateLoginServlet")
 public class ValidateLoginServlet extends BSHttpServlet_ {
-	private static final Logger LOG = Logger.getLogger(ValidateLoginServlet.class.getName());
+	private static final Logger LOG = LogManager.getLogger(ValidateLoginServlet.class);
 	private static final String NOT_FOUND_JSP = "/WEB-INF/jsp/common/not-found.jsp";
 	private static final long serialVersionUID = 3161065592126995826L;
 
@@ -87,10 +87,11 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 					cf.closeConnection(connTemp);
 				}
 			} else {
-				LOG.log(Level.FINE, "Validing user {0}, password {1}", BSUtils.array2ObjectArray(mail, password));
+				LOG.trace(String.format("Validing user %s, password *******", mail));
 				user = userService.login(connBSframework, mail, password);
-				LOG.log(Level.INFO, "User: {0}", user);
-
+				if (user != null) {
+					LOG.trace(String.format("User: %s was found", user.toString()));
+				}
 				if (user == null && mayBeUser != null) {
 					List<Domain> mayBeTheirDomains = getDomains(connBSframework, mayBeUser);
 					connTemp = null;
@@ -117,7 +118,7 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 						domainAttribute = getDomainAttribute(connBSframework, defaultDomain);
 
 						connDomain = cf.getConnection(defaultDomain.getDatabase());
-						
+
 						rols = userService.getRols(connDomain, user);
 						if (rols.size() == 0) {
 							String msg = "Usuario no tiene roles configurados";
@@ -136,11 +137,12 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 					if (user != null) {
 						HttpSession session = createSession(request, response);
 
-//						System.out.println(session.getId());
-//						System.out.println(System.currentTimeMillis());
-//						System.out.println(session.getAttribute("SESSION_SSO").toString() );
-						
-						//SessionId
+						// System.out.println(session.getId());
+						// System.out.println(System.currentTimeMillis());
+						// System.out.println(session.getAttribute("SESSION_SSO").toString()
+						// );
+
+						// SessionId
 						synchronized (session) {
 							session.setAttribute("User", user);
 							session.setAttribute("Rol", rols);
@@ -174,18 +176,18 @@ public class ValidateLoginServlet extends BSHttpServlet_ {
 
 		Calendar d1 = BSDateTimeUtil.date2Calendar(user.getLastChangePass());
 
-		LOG.log(Level.FINE, "User: {0} - LastChangePass: {1}",
-				BSUtils.array2ObjectArray(user.getMail(), BSDateTimeUtil.calendar2String(d1, "yyyy-MM-dd hh:mm:ss")));
+		LOG.trace(String.format("User: %s - LastChangePass: %s", user.getMail(),
+				BSDateTimeUtil.calendar2String(d1, "yyyy-MM-dd hh:mm:ss")));
 
 		Integer passChangeDays = config.getInteger(conn, "PASS_CHANGE_DAYS", 90);
-		LOG.log(Level.FINE, "PassChangeDays: {0}  ", passChangeDays);
+		LOG.trace(String.format("PassChangeDays: %d", passChangeDays));
 
 		Long daysDiff = BSDateTimeUtil.dateDiff(d1, Calendar.getInstance());
-		LOG.log(Level.FINE, "Days diff {0}, for {1}", BSUtils.array2ObjectArray(daysDiff, user.getMail()));
+		LOG.trace(String.format("Days diff %d, for %s", daysDiff, user.getMail()));
 
 		Boolean out = daysDiff > passChangeDays;
 
-		LOG.log(Level.FINE, "Out is: {0}", out);
+		LOG.exit(String.format("If %d(daysDiff) > %d(passChangeDays) = %s", daysDiff, passChangeDays, (out ? "Yes" : "Not")));
 
 		return out;
 	}
