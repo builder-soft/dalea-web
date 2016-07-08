@@ -58,7 +58,7 @@ public class EmployeeDetachedManager extends BSHttpServletCRUD {
 		action.setLabel("Borrado definitivo");
 		action.setWarningMessage("¿Esta seguro de eliminar este empleado? Los datos asociados a él se perderán");
 		action.setUrl("/servlet/timectrl/employee/PurgeEmployee");
-		// table.addAction(action);
+//		table.addAction(action);
 
 		configEventLog(table, getCurrentUser(request).getId());
 

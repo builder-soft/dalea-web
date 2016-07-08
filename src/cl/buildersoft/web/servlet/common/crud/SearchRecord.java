@@ -24,7 +24,6 @@ import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
  */
 @WebServlet("/servlet/common/SearchRecord")
 public class SearchRecord extends BSHttpServlet_ {
-
 	private static final long serialVersionUID = -5785656616097922095L;
 
 	public SearchRecord() {
