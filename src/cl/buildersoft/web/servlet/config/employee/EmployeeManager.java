@@ -190,7 +190,7 @@ public class EmployeeManager extends BSHttpServletCRUD {
 		out[5] = getArea(conn, table.getField("cArea"));// Area
 		out[6] = getPrivilege(conn, table.getField("cPrivilege")); // Tipo
 																	// Usuario
-		out[7] = getGroup(conn, table.getField("cArea")); // Grupo
+		out[7] = getGroup(conn, table.getField("cGroup")); // Grupo
 		out[8] = table.getField("cUsername").getValue();
 		out[9] = table.getField("cMail").getValue();
 		out[10] = getBoss(conn, table.getField("cArea")); // Superior
