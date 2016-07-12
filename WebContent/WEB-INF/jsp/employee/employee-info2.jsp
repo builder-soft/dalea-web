@@ -1,4 +1,3 @@
-XXXXXXXXXX
 <div class="row">
 	<div class="col-sm-4">
 		<label>Lleve:</label> ${requestScope.Employee.key}

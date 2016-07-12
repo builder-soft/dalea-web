@@ -27,15 +27,20 @@
 	</servlet>
 
 	<!-- FILTROS -->
+	
 	<filter>
 		<filter-name>RestoreSessionFilter</filter-name>
 		<filter-class>cl.buildersoft.framework.web.filter.RestoreSessionFilter</filter-class>
 	</filter>
+	
 	<filter-mapping>
 		<filter-name>RestoreSessionFilter</filter-name>
 		<url-pattern>/servlet/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
+	
+	 
+	 
 	<filter>
 		<filter-name>UserExistsFilter</filter-name>
 		<filter-class>cl.buildersoft.framework.web.filter.UserExistsFilter</filter-class>
