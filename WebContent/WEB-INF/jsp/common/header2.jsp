@@ -24,7 +24,7 @@
  
 <script>
 	var contextPath = "${applicationScope['TIMECTRL_CONTEXT']}";
-	var speed = "fast";// "slow" "fast";
+	var speed = "slow";// "slow" "fast";
 	var dateFormat = "${applicationScope.DateFormat}";
 	
 	function fixDateFormat(dateFormat) {
@@ -46,7 +46,7 @@
 	}
 </script>
 <script
-	src="${applicationScope['DALEA_CONTEXT']}/js/common/framework.js?<%=BSWeb.randomString()%>"></script>
+	src="${applicationScope['DALEA_CONTEXT']}/js/common/framework.js"></script>
 
 </head>
 

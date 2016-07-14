@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +22,7 @@ import cl.buildersoft.framework.database.BSBeanUtils;
 import cl.buildersoft.framework.database.BSmySQL;
 import cl.buildersoft.framework.services.BSMenuService;
 import cl.buildersoft.framework.services.impl.BSMenuServiceImpl;
+import cl.buildersoft.framework.util.BSConnectionFactory;
 import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
 
 /**
@@ -29,7 +30,7 @@ import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
  */
 @WebServlet("/servlet/system/roleDef/RoleDef")
 public class RoleDef extends BSHttpServlet_ {
-	private static final Logger LOG = Logger.getLogger(RoleDef.class.getName());
+	private static final Logger LOG = LogManager.getLogger(RoleDef.class);
 	private static final long serialVersionUID = 111140893680994718L;
 
 	public RoleDef() {
@@ -38,32 +39,41 @@ public class RoleDef extends BSHttpServlet_ {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BSmySQL mysql = new BSmySQL();
-		Connection conn = getConnection(request);
+		BSConnectionFactory cf = new BSConnectionFactory();
+		Connection conn = cf.getConnection(request);
 		HttpSession session = request.getSession(false);
 
 		String sql = "SELECT cId, cName FROM tRol";
 		ResultSet rolsResultSet = mysql.queryResultSet(conn, sql, null);
 		List<Object[]> rolsArray = mysql.resultSet2Matrix(rolsResultSet);
 
-		Long idRolLong = getRolId(request, rolsArray);
-		List<Rol> rols = getRol(conn, idRolLong);
+		Long idRolSelected = getRolId(request, rolsArray);
+		List<Rol> rols = getRol(conn, idRolSelected);
 
 		BSMenuService menuService = new BSMenuServiceImpl();
 
+		@SuppressWarnings("unchecked")
 		Menu fullMenu = menuService.getMenu(conn, (Map<String, DomainAttribute>) session.getAttribute("DomainAttribute"),
 				getCurrentUser(request).getAdmin(), null);
+		@SuppressWarnings("unchecked")
 		Menu rolMenu = menuService.getMenu(conn, (Map<String, DomainAttribute>) session.getAttribute("DomainAttribute"),
 				getCurrentUser(request).getAdmin(), rols);
-		mysql.closeConnection(conn);
 
-		LOG.log(Level.FINE, "RolMenu: {0}", rolMenu.list().toString());
+		Boolean bootstrap = bootstrap(conn);
+		bootstrap =false;
+		
+		String page = bootstrap  ? "/WEB-INF/jsp/system/role-def/role-def2.jsp"
+				: "/WEB-INF/jsp/system/role-def/role-def.jsp";
+		cf.closeConnection(conn);
+
+		LOG.trace(String.format("RolMenu: %s", rolMenu.list().toString()));
 
 		request.setAttribute("Rols", rolsArray);
 		request.setAttribute("FullMenu", fullMenu);
 		request.setAttribute("RolMenu", rolMenu);
-		request.setAttribute("cId", idRolLong);
+		request.setAttribute("cId", idRolSelected);
 
-		forward(request, response, "/WEB-INF/jsp/system/role-def/role-def.jsp");
+		forward(request, response, page);
 		// request.getRequestDispatcher("/WEB-INF/jsp/system/role-def/role-def.jsp").forward(request,
 		// response);
 
