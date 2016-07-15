@@ -16,28 +16,12 @@
 	List<Submenu> rolMenu = menuAux.list();
 %>
 
+<link rel='stylesheet'
+	href="${applicationScope['DALEA_CONTEXT']}/treeview2/style.css">
 <script type="text/javascript"
-	src="${applicationScope['DALEA_CONTEXT']}/treeview/bootstrap-treeview.min.js"></script>
-<link rel="stylesheet" href="${applicationScope['DALEA_CONTEXT']}/treeview/bootstrap-treeview.min.css">
-
-
-<!-- 
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/admin/role-def.js?<%=BSWeb.randomString()%>"></script>
-
-<script type="text/javascript"
-	src="${applicationScope['STATIC_CONTEXT']}/plugin/checkboxtree/0.5.2/jquery-ui-1.8.12.custom.min.js"></script>
-<script type="text/javascript"
-	src="${applicationScope['STATIC_CONTEXT']}/plugin/checkboxtree/0.5.2/jquery.checkboxtree.js"></script>
- -->
+	src="${pageContext.request.contextPath}/js/admin/role-def2.js?<%=BSWeb.randomString()%>"></script>
 
 <!-- 
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/common/checkboxtree/jquery-ui-1.8.12.custom.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/common/checkboxtree/jquery.checkboxtree.js"></script>
- -->
- <!-- 
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#tree1').checkboxTree();
@@ -47,55 +31,153 @@
 
 <h1 class="cTitle">Definición de Roles.</h1>
 
-
+<!-- 
 <form
 	action="${pageContext.request.contextPath}/servlet/system/roledef/SaveRoleDef"
 	id="frm" method="post">
+ -->
+	 
+<form 
+action="${applicationScope['TIMECTRL_CONTEXT']}/servlet/ShowParameters" 
+id="frm"  method="post">
+  
 
-	<!-- 
-<form action="${pageContext.request.contextPath}/servlet/ShowParameters" method="post">
-  -->
+	<table border="0" width="60%">
+		<tr>
+			<td class="cLabel">Roles:</td>
+			<td><select name="Rol" onchange="javascript:changeSelect('${pageContext.request.contextPath}', this);">
+					<%
+						for (Object[] row : rols) {
+					%>
+					<option value="<%=row[0]%>" <%=getSelected(row, request)%>><%=row[1]%></option>
+					<%
+						}
+					%>
+			</select></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div style="overflow: auto; width: 100%; height: 350px">
 
-	<div style="overflow: auto; width: 100%; height: 400px">
-		<table border="0" width="60%">
-			<tr>
-				<td class="cLabel">Roles:</td>
-				<td><select name="Rol" onchange="javascript:changeSelect(this);">
-						<%
-							for (Object[] row : rols) {
-						%>
-						<option value="<%=row[0]%>" <%=getSelected(row, request)%>><%=row[1]%></option>
-						<%
-							}
-						%>
-				</select></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<ul id="tree1">
+					<ul id="tree1" class="treeview">
 						<%=write(fullMenu, rolMenu)%>
 					</ul>
 
-				</td>
-			</tr>
-		</table>
-	</div>
-	<button type="submit" >Grabar</button>
+
+
+
+
+					<!-- 
+<ul class="treeview">
+	 <li>
+		<input type="checkbox" name="root" id="root">
+        <label for="root" class="custom-unchecked">Root</label>
+		<ul>
+				<li>
+					<input type="checkbox" name="tall" id="tall">
+					<label for="tall" class="custom-unchecked">Tall Things</label>
+					<ul>
+						 <li>
+							 <input type="checkbox" name="tall-1" id="tall-1">
+							 <label for="tall-1" class="custom-unchecked">Buildings</label>
+						 </li>
+						 <li>
+							 <input type="checkbox" name="tall-2" id="tall-2">
+							 <label for="tall-2" class="custom-unchecked">Giants</label>
+							 <ul>
+								 <li>
+									 <input type="checkbox" name="tall-2-1" id="tall-2-1">
+									 <label for="tall-2-1" class="custom-checked">Andre</label>
+								 </li>
+								 <li class="last">
+									 <input type="checkbox" name="tall-2-2" id="tall-2-2">
+									 <label for="tall-2-2" class="custom-unchecked">Paul Bunyan</label>
+								 </li>
+							 </ul>
+						 </li>
+						 <li class="last">
+							 <input type="checkbox" name="tall-3" id="tall-3">
+							 <label for="tall-3" class="custom-unchecked">Two sandwiches</label>
+						 </li>
+					</ul>
+				</li>
+				<li class="last">
+					<input type="checkbox" name="short" id="short">
+					<label for="short" class="custom-unchecked">Short Things</label>
+					<ul>
+						 <li>
+							 <input type="checkbox" name="short-1" id="short-1">
+							 <label for="short-1" class="custom-unchecked">Smurfs</label>
+						 </li>
+						 <li>
+							 <input type="checkbox" name="short-2" id="short-2">
+							 <label for="short-2" class="custom-unchecked">Mushrooms</label>
+							<ul>
+								 <li>
+									 <input type="checkbox" name="short-x" id="short-x">
+									 <label for="short-x" class="custom-unchecked">Smurfs X</label>
+								 </li>
+								 <li>
+									 <input type="checkbox" name="short-y" id="short-y">
+									 <label for="short-y" class="custom-unchecked">Mushrooms Y</label>
+								 </li>
+								 <li class="last">
+									 <input type="checkbox" name="short-3" id="short-z">
+									 <label for="short-z" class="custom-unchecked">One Sandwich Z</label>
+										<ul>
+											 <li>
+												 <input type="checkbox" name="short-a" id="short-a">
+												 <label for="short-a" class="custom-unchecked">Smurfs A</label>
+											 </li>
+											 <li>
+												 <input type="checkbox" name="short-b" id="short-b">
+												 <label for="short-b" class="custom-unchecked">Mushrooms B</label>
+											 </li>
+											 <li class="last">
+												 <input type="checkbox" name="short-c" id="short-c">
+												 <label for="short-c" class="custom-unchecked">One Sandwich C</label>
+											 </li>
+										</ul>									 
+								 </li>
+							</ul>
+						 </li>
+						 <li class="last">
+							 <input type="checkbox" name="short-3" id="short-3">
+							 <label for="short-3" class="custom-unchecked">One Sandwich</label>
+						 </li>
+					</ul>
+				</li>
+			</ul>
+        </li>
+		
+    </ul>
+ -->
+
+
+
+
+
+
+
+
+
+				</div>
+			</td>
+		</tr>
+	</table>
+	<button type="submit" class="btn btn-primary">Grabar</button>
+
 </form>
 
 <%@ include file="/WEB-INF/jsp/common/footer2.jsp"%>
 
-<script type="text/javascript"
-	src="${applicationScope['STATIC_CONTEXT']}/plugin/jdmenu/1.4.1/jquery.js"></script>
-
-<script type="text/javascript"
-	src="${applicationScope['DALEA_CONTEXT']}/treeview/bootstrap-treeview.min.js"></script>
-	
-<link rel="stylesheet" href="${applicationScope['DALEA_CONTEXT']}/treeview/bootstrap-treeview.min.css">
+<script src="${applicationScope['DALEA_CONTEXT']}/treeview2/script.js"></script>
 
 <%!String idCheckbox = "";
+	Integer deep=5;
 
 	private String getSelected(Object[] row, HttpServletRequest request) {
+		/** This method is used for search role selected. */
 		Long id = (Long) request.getAttribute("cId");
 		return ((Long) row[0]).equals(id) ? "selected" : "";
 	}
@@ -105,27 +187,33 @@
 		Option option = null;
 		for (Submenu menu : fullMenu) {
 			option = menu.getOption();
-			out += "<li class='cLabel' type='none'>" + drowCheckbox(option, rolMenu) + "<label for='" + idCheckbox + "'>"
-					+ menu.getOption().getLabel() + "</label>" + writeSubOption(menu, rolMenu) + "</li>";
+			out += deep(0) + "<li>\n" + deep(1) + drowCheckbox(option, rolMenu) + drawLabel(option, rolMenu) + writeSubOption(menu, rolMenu) + deep(0) + "</li>\n";
 
 		}
 
 		return out;
 	}
 
-	private String drowCheckbox(Option option, List<Submenu> rolMenu) {
-		String out = "<input type='checkbox' ";
-		out += "value='" + option.getId() + "' ";
-		out += "name='Option' id='opt" + option.getId() + "'";
-		out += getChecked(option, rolMenu);
-		out += ">";
-		idCheckbox = "opt" + option.getId();
+	private String deep(Integer increment) {
+		String out = "";
+		
+		deep += increment;
+
+		for (int i = 0; i <= this.deep; i++) {
+			out += "   ";
+		}
 		return out;
 	}
 
+
 	private String getChecked(Option option, List<Submenu> rolMenu) {
 		Boolean isChecked = isChecked(option, rolMenu);
-		return isChecked ? "checked " : "";
+		return isChecked ? "custom-checked" : "custom-unchecked";
+	}
+	
+	private String getChecked4Checkbox(Option option, List<Submenu> rolMenu) {
+		Boolean isChecked = isChecked(option, rolMenu);
+		return isChecked ? " checked" : "";
 	}
 
 	private Boolean isChecked(Option option, List<Submenu> main) {
@@ -150,15 +238,42 @@
 		String out = "";
 		List<Submenu> main = menu.list();
 		if (main.size() > 0) {
-			out += "<ul>";
+			out += deep(0) + "<ul>\n";
+			deep(1);
 			Option option = null;
 			for (Submenu sub : main) {
 				option = sub.getOption();
-				out += "<li class='cLabel' type='none'>" + drowCheckbox(option, rolMenu) + "<label for='" + idCheckbox + "'>"
-						+ option.getLabel() + "</label>" + writeSubOption(sub, rolMenu) + "</li>";
+				out += deep(0) + "<li>\n" + deep(1) + drowCheckbox(option, rolMenu) + drawLabel(option, rolMenu) +  
+						writeSubOption(sub, rolMenu) +  deep(-1) + "</li>\n";
 			}
-			out += "</ul>";
+			out += deep(-1)+ "</ul>\n";
 		}
 		return out;
-	}%>
+	}
 	
+	private String drowCheckbox(Option option, List<Submenu> rolMenu) {
+		String out = "<input type='checkbox' ";
+		out += "value='" + option.getId() + "' ";
+		out += "name='Option' id='opt" + option.getId() + "'";
+		out += getChecked4Checkbox(option, rolMenu);
+		out += ">\n" + deep(0);
+		idCheckbox = "opt" + option.getId();
+		return out;
+	}
+
+	private String drawLabel(Option option, List<Submenu> rolMenu) {
+		String out = "<label for='" + idCheckbox + "' class='"+ getChecked(option, rolMenu) + "'>"
+				+ option.getLabel() + "</label>\n";
+		
+/**		
+		String out = "<input type='checkbox' ";
+		out += "value='" + option.getId() + "' ";
+		out += "name='opt" + option.getId() + "' id='opt" + option.getId() + "'";
+		//		out += getChecked(option, rolMenu);
+		out += ">\n"+deep(0);
+		idCheckbox = "opt" + option.getId();
+		*/
+		return out;
+	}
+						
+	%>

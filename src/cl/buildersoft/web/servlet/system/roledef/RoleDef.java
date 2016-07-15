@@ -61,9 +61,8 @@ public class RoleDef extends BSHttpServlet_ {
 
 		Boolean bootstrap = bootstrap(conn);
 		bootstrap =false;
-		
-		String page = bootstrap  ? "/WEB-INF/jsp/system/role-def/role-def2.jsp"
-				: "/WEB-INF/jsp/system/role-def/role-def.jsp";
+
+		String page = bootstrap ? "/WEB-INF/jsp/system/role-def/role-def2.jsp" : "/WEB-INF/jsp/system/role-def/role-def.jsp";
 		cf.closeConnection(conn);
 
 		LOG.trace(String.format("RolMenu: %s", rolMenu.list().toString()));
