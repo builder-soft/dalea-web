@@ -60,7 +60,7 @@ public class RoleDef extends BSHttpServlet_ {
 				getCurrentUser(request).getAdmin(), rols);
 
 		Boolean bootstrap = bootstrap(conn);
-		bootstrap =false;
+		//bootstrap = false;
 
 		String page = bootstrap ? "/WEB-INF/jsp/system/role-def/role-def2.jsp" : "/WEB-INF/jsp/system/role-def/role-def.jsp";
 		cf.closeConnection(conn);

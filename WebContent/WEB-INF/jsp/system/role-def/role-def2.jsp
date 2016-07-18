@@ -31,16 +31,16 @@
 
 <h1 class="cTitle">Definición de Roles.</h1>
 
-<!-- 
+ 
 <form
 	action="${pageContext.request.contextPath}/servlet/system/roledef/SaveRoleDef"
 	id="frm" method="post">
- -->
-	 
+
+<!-- 
 <form 
 action="${applicationScope['TIMECTRL_CONTEXT']}/servlet/ShowParameters" 
 id="frm"  method="post">
-  
+-->
 
 	<table border="0" width="60%">
 		<tr>
@@ -171,7 +171,7 @@ id="frm"  method="post">
 
 <%@ include file="/WEB-INF/jsp/common/footer2.jsp"%>
 
-<script src="${applicationScope['DALEA_CONTEXT']}/treeview2/script.js"></script>
+<script src="${applicationScope['DALEA_CONTEXT']}/treeview2/script2.js"></script>
 
 <%!String idCheckbox = "";
 	Integer deep=5;

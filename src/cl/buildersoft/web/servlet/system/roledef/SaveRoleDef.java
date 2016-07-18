@@ -15,9 +15,12 @@ import cl.buildersoft.framework.beans.Rol;
 import cl.buildersoft.framework.database.BSmySQL;
 import cl.buildersoft.framework.util.BSConnectionFactory;
 import cl.buildersoft.framework.web.servlet.BSHttpServlet_;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @WebServlet("/servlet/system/roledef/SaveRoleDef")
 public class SaveRoleDef extends BSHttpServlet_ {
+	private static final Logger LOG = LogManager.getLogger(SaveRoleDef.class);
 	private static final long serialVersionUID = -2938011475821935220L;
 
 	public SaveRoleDef() {
@@ -75,6 +78,7 @@ public class SaveRoleDef extends BSHttpServlet_ {
 			prms.add(Long.parseLong(option));
 			mysql.update(conn, sql, prms);
 			// printSQL(sql, prms);
+			LOG.trace(String.format(sql.replaceAll("[?]", "%s"), rol, option));
 			prms.remove(1);
 		}
 	}

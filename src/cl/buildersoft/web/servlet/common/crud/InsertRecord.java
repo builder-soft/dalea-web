@@ -13,17 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import cl.buildersoft.framework.database.BSmySQL;
 import cl.buildersoft.framework.exception.BSDataBaseException;
 import cl.buildersoft.framework.util.BSConnectionFactory;
 import cl.buildersoft.framework.util.BSUtils;
 import cl.buildersoft.framework.util.BSWeb;
 import cl.buildersoft.framework.util.crud.BSField;
-import cl.buildersoft.framework.util.crud.BSHttpServletCRUD;
 import cl.buildersoft.framework.util.crud.BSTableConfig;
 
 @WebServlet("/servlet/common/InsertRecord")
 public class InsertRecord extends AbstractServletUtil {
+	private static final Logger LOG = LogManager.getLogger(InsertRecord.class);
 	private static final long serialVersionUID = 947236230190327847L;
 
 	@Override
@@ -79,7 +82,6 @@ public class InsertRecord extends AbstractServletUtil {
 			writeEventLog(conn, table, "INSERT", getCurrentUser(request).getId());
 
 			Object servletObject = session.getAttribute("ServletManager");
-			
 
 			// BSFactory f = new BSFactory();
 			// BSHttpServletCRUD crud = (BSHttpServletCRUD)
@@ -87,6 +89,8 @@ public class InsertRecord extends AbstractServletUtil {
 			// crud.postExecuteAction(table, "INSERT",
 			// getCurrentUser(request).getId());
 
+		} catch (Exception e) {
+			LOG.error(e);
 		} finally {
 			cf.closeConnection(conn);
 		}
