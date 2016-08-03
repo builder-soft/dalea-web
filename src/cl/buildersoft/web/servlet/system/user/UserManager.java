@@ -1,6 +1,5 @@
 package cl.buildersoft.web.servlet.system.user;
 
-import java.io.Serializable;
 import java.sql.Connection;
 
 import javax.servlet.annotation.WebServlet;
