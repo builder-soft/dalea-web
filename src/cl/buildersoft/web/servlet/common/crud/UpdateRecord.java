@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +23,7 @@ import cl.buildersoft.framework.util.crud.BSTableConfig;
 
 @WebServlet("/servlet/common/UpdateRecord")
 public class UpdateRecord extends AbstractServletUtil {
-	private static final Logger LOG = Logger.getLogger(UpdateRecord.class.getName());
+	private static final Logger LOG = LogManager.getLogger(UpdateRecord.class);
 	private static final long serialVersionUID = 729493572423196326L;
 
 	public UpdateRecord() {
@@ -72,7 +72,7 @@ public class UpdateRecord extends AbstractServletUtil {
 
 			mysql.update(conn, sql, params);
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE, e.getMessage(), e);
+			LOG.error(e);
 			throw new BSProgrammerException(e);
 		} finally {
 			cf.closeConnection(conn);
@@ -94,11 +94,13 @@ public class UpdateRecord extends AbstractServletUtil {
 
 		for (BSField field : fieldsWidthoutId) {
 			if (!field.isReadonly() && field.getShowInForm()) {
-				LOG.log(Level.FINE, "Processing field {0}", field);
+				LOG.trace(String.format("Processing field %s", field));
 				out.add(BSWeb.value2Object(conn, request, field, true));
 			}
 		}
-		out.add(BSWeb.value2Object(conn, request, idField, true));
+		Object idValue = BSWeb.value2Object(conn, request, idField, true);
+		idField.setValue(idValue);		
+		out.add(idValue);
 
 		return out;
 	}
