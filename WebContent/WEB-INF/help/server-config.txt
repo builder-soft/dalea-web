@@ -1,0 +1,5 @@
+En el archivo catalina.properties de tomcat, configurar esta linea:
+
+shared.loader=C:/cmoscoso/software/tomcat/apache-tomcat-7.0.55/lib/shared/*.jar,C:/cmoscoso/software/tomcat/apache-tomcat-7.0.55/lib/shared/log4j2.xml
+
+
